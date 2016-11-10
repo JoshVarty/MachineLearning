@@ -112,7 +112,7 @@ def predictions_3(data):
             predictions.append(False)
         elif passenger.Sex == "female":
             predictions.append(True)
-        elif passenger.Fare > 200:
+        elif passenger.Fare > 400:
             predictions.append(True)
         elif passenger.Pclass == 3:
             predictions.append(False)

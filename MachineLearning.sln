@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project1.TitanicSurvivalExploration", "Project1.TitanicSurvivalExploration\Project1.TitanicSurvivalExploration.pyproj", "{13503B3C-AEA0-4970-909B-EF16E7C3F5DE}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2016.11.09.StatisticalAnalysis", "2016.11.09.StatisticalAnalysis\2016.11.09.StatisticalAnalysis.pyproj", "{13E86171-57D5-459B-9472-79F260A8C027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{13503B3C-AEA0-4970-909B-EF16E7C3F5DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13503B3C-AEA0-4970-909B-EF16E7C3F5DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E86171-57D5-459B-9472-79F260A8C027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E86171-57D5-459B-9472-79F260A8C027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
