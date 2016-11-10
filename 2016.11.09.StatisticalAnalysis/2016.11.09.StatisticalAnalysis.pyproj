@@ -34,6 +34,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NumpyPlayground.py" />
+    <Compile Include="OlympicMedalPoints.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PandasPlayground_Dataframe.py">
       <SubType>Code</SubType>
     </Compile>
