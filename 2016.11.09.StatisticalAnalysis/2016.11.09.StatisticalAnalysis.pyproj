@@ -31,6 +31,9 @@
     <Compile Include="PandasPlayground_Dataframe.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PandasPlayground_IndexingDataframes.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PandasPlayground_Series.py">
       <SubType>Code</SubType>
     </Compile>
