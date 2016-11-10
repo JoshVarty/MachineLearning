@@ -27,6 +27,9 @@
     <Compile Include="AverageBronzeMedals.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AverageMedals.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataFrameQuiz.py">
       <SubType>Code</SubType>
     </Compile>
