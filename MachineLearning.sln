@@ -7,6 +7,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project1.TitanicSurvivalExp
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2016.11.09.StatisticalAnalysis", "2016.11.09.StatisticalAnalysis\2016.11.09.StatisticalAnalysis.pyproj", "{13E86171-57D5-459B-9472-79F260A8C027}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2016.11.11.DataModeling", "2016.11.11.DataModeling\2016.11.11.DataModeling.pyproj", "{E9090923-6BFA-437C-8E58-17B961BB9EFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,8 @@ Global
 		{13503B3C-AEA0-4970-909B-EF16E7C3F5DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13E86171-57D5-459B-9472-79F260A8C027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13E86171-57D5-459B-9472-79F260A8C027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9090923-6BFA-437C-8E58-17B961BB9EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9090923-6BFA-437C-8E58-17B961BB9EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
