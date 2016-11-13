@@ -12,28 +12,30 @@ X = X.select_dtypes(include=[object])
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
 
-# TODO: Create a LabelEncoder object, which will turn all labels present in
-#       in each feature to numbers. For example, the labels ['cat', 'dog', 'fish']
-#       might be transformed into [0, 1, 2]
+#  Create a LabelEncoder object, which will turn all labels present in
+#  in each feature to numbers. For example, the labels ['cat', 'dog', 'fish']
+#  might be transformed into [0, 1, 2]
 
-le = None
+le = LabelEncoder()
 
-# TODO: For each feature in X, apply the LabelEncoder's fit_transform
-#       function, which will first learn the labels for the feature (fit)
-#       and then change the labels to numbers (transform). 
+# For each feature in X, apply the LabelEncoder's fit_transform
+# function, which will first learn the labels for the feature (fit)
+# and then change the labels to numbers (transform). 
+
 
 for feature in X:
-      X[feature] = None
+    josh = le.fit_transform(X[feature])
+    X[feature] = josh
 
-# TODO: Create a OneHotEncoder object, which will create a feature for each
-#       label present in the data. For example, for a feature 'animal' that had
-#       the labels ['cat','dog','fish'], the new features (instead of 'animal') 
-#       could be ['animal_cat', 'animal_dog', 'animal_fish']
+# Create a OneHotEncoder object, which will create a feature for each
+# label present in the data. For example, for a feature 'animal' that had
+# the labels ['cat','dog','fish'], the new features (instead of 'animal') 
+# could be ['animal_cat', 'animal_dog', 'animal_fish']
 
-ohe = None
+ohe = OneHotEncoder() 
 
-# TODO: Apply the OneHotEncoder's fit_transform function to all of X, which will
-#       first learn of all the (now numerical) labels in the data (fit), and then
-#       change the data to one-hot encoded entries (transform).
+# Apply the OneHotEncoder's fit_transform function to all of X, which will
+# first learn of all the (now numerical) labels in the data (fit), and then
+# change the data to one-hot encoded entries (transform).
+onehotlabels = ohe.fit_transform(X)
 
-onehotlabels = None
