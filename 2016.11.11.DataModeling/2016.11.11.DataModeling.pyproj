@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e9090923-6bfa-437c-8e58-17b961bb9efc</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>studentMain.py</StartupFile>
+    <StartupFile>OneHotEncoding.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,12 +33,18 @@
     <Compile Include="class_vis.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="OneHotEncoding.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="prep_terrain_data.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="studentMain.py">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="titanic_data.csv" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
