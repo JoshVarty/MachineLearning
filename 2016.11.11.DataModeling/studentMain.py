@@ -32,7 +32,6 @@ bumpy_slow = [features_train[ii][1] for ii in range(0, len(features_train)) if l
 clf = classify(features_train, labels_train)
 
 
-
 ### draw the decision boundary with the text points overlaid
 prettyPicture(clf, features_test, labels_test)
 output_image("test.png", "png", open("test.png", "rb").read())
