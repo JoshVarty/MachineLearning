@@ -30,7 +30,10 @@ def avg_medal_count():
                             'gold': Series(gold),
                             'silver': Series(silver),
                             'bronze': Series(bronze)}    
-    
+
+ 
+    df = DataFrame(olympic_medal_counts)
+
     medalists = df[(df.gold >= 1) | (df.silver >= 1) | (df.bronze >= 1)]
     avg_medal_count = numpy.mean(medalists)
     
