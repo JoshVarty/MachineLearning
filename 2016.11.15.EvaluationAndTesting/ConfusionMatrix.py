@@ -8,7 +8,7 @@ import pandas as pd
 # Load the dataset
 from sklearn import datasets
 
-X = pd.read_csv('titanic_data.csv')
+X = pd.read_csv('C:\\Users\\Josh\\Documents\\GitHub\\MachineLearning\\Project1.TitanicSurvivalExploration\\titanic_data.csv')
 
 X = X._get_numeric_data()
 y = X['Survived']
@@ -22,18 +22,20 @@ from sklearn.naive_bayes import GaussianNB
 # TODO: split the data into training and testing sets,
 # using the standard settings for train_test_split.
 # Then, train and test the classifiers with your newly split data instead of X and y.
+from sklearn import cross_validation
+labels_train, labels_test, features_train, features_test = cross_validation.train_test_split(X, y, test_size=0.4, random_state=0) 
 
 clf1 = DecisionTreeClassifier()
-clf1.fit(X,y)
-print "Confusion matrix for this Decision Tree:\n",confusion_matrix(y,clf1.predict(X))
+clf1.fit(labels_train, features_train)
+print "Confusion matrix for this Decision Tree:\n", confusion_matrix(features_test, clf1.predict(labels_test))
 
 clf2 = GaussianNB()
-clf2.fit(X,y)
-print "GaussianNB confusion matrix:\n",confusion_matrix(y,clf2.predict(X))
+clf2.fit(labels_train, features_train)
+print "GaussianNB confusion matrix:\n", confusion_matrix(features_test, clf2.predict(labels_test))
 
 #TODO: store the confusion matrices on the test sets below
 
 confusions = {
- "Naive Bayes": 0,
- "Decision Tree": 0
+ "Naive Bayes": confusion_matrix(features_test, clf2.predict(labels_test)),
+ "Decision Tree": confusion_matrix(features_test, clf1.predict(labels_test))
 }
