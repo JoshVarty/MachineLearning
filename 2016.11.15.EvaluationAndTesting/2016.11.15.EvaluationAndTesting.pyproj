@@ -37,6 +37,9 @@
     <Compile Include="F1Score.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LinearLearnerQuadraticData.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MeanAbsoluteError.py">
       <SubType>Code</SubType>
     </Compile>
