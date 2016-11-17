@@ -40,6 +40,9 @@
     <Compile Include="MeanAbsoluteError.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MeanSquaredError.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PrecisionAndRecall.py">
       <SubType>Code</SubType>
     </Compile>
