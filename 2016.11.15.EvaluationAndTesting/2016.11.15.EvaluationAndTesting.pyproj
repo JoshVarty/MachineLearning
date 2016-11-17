@@ -34,6 +34,9 @@
     <Compile Include="EvaluateAccuracy.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="F1Score.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PrecisionAndRecall.py">
       <SubType>Code</SubType>
     </Compile>

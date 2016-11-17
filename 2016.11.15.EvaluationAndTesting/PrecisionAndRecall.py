@@ -36,5 +36,5 @@ results = {
   "Naive Bayes Recall": recall(features_test ,clf2.predict(labels_test)),
   "Naive Bayes Precision": precision(features_test, clf2.predict(labels_test)),
   "Decision Tree Recall": recall(features_test, clf1.predict(labels_test)),
-  "Decision Tree Precision": precision(features_test, clf1.predict(labels_test)))
+  "Decision Tree Precision": precision(features_test, clf1.predict(labels_test))
 }
