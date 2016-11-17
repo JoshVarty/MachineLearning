@@ -24,7 +24,7 @@ reg1.fit(labels_train, features_train)
 print "Decision Tree mean absolute error: {:.2f}".format(mae(features_test, reg1.predict(labels_test)))
 
 reg2 = LinearRegression()
-reg2.fit(X, y)
+reg2.fit(labels_train, features_train)
 print "Linear regression mean absolute error: {:.2f}".format(mae(features_test, reg2.predict(labels_test)))
 
 results = {
