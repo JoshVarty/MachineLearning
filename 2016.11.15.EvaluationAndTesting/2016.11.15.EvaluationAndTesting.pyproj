@@ -46,6 +46,9 @@
     <Compile Include="MeanSquaredError.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NoisyDataComplexModel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PrecisionAndRecall.py">
       <SubType>Code</SubType>
     </Compile>
