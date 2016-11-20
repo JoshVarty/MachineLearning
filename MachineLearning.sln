@@ -11,6 +11,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2016.11.11.DataModeling", "
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2016.11.15.EvaluationAndTesting", "2016.11.15.EvaluationAndTesting\2016.11.15.EvaluationAndTesting.pyproj", "{8421CC0D-1433-41F4-AEBC-D86096C8D79A}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project2.BostonHousingPrices", "Project2.BostonHousingPrices\Project2.BostonHousingPrices.pyproj", "{9AB9A16B-2F75-4E10-812D-2D21448F7691}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,8 @@ Global
 		{E9090923-6BFA-437C-8E58-17B961BB9EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8421CC0D-1433-41F4-AEBC-D86096C8D79A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8421CC0D-1433-41F4-AEBC-D86096C8D79A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB9A16B-2F75-4E10-812D-2D21448F7691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB9A16B-2F75-4E10-812D-2D21448F7691}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
