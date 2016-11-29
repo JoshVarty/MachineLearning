@@ -14,4 +14,4 @@ sleep = [5,6,7,8,10,12,16]
 scores = [65,51,75,75,86,80,0]
 
 
-coeffs = []
+coeffs = np.polyfit(sleep, scores, 2)
