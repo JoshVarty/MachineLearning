@@ -43,7 +43,7 @@ def compute_regression(sleep, scores):
 
     # 
     m = slope
-    b = (slope * avg_sleep + avg_scores)
+    b = -slope * avg_sleep + avg_scores
 
     return m,b
 
