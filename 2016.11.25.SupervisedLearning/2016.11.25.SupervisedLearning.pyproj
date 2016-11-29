@@ -38,6 +38,9 @@
     <Compile Include="class_vis.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PolynomialRegression.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="regressionQuiz.py">
       <SubType>Code</SubType>
     </Compile>
