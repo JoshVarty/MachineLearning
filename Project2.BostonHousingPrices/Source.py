@@ -82,7 +82,7 @@ y = X["MEDV"]
 del X["MEDV"]
 
 # Shuffle and split the data into training and testing subsets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Success
 print "Training and testing split was successful."
@@ -119,7 +119,7 @@ def fit_model(X, y):
     scoring_fnc = make_scorer(performance_metric)
 
     # Create the grid search object
-    grid = GridSearchCV(regressor, params, scoring_fnc)
+    grid = GridSearchCV(regressor, params, scoring_fnc, cv=cv_sets)
 
     # Fit the grid search object to the data to compute the optimal model
     grid = grid.fit(X, y)
