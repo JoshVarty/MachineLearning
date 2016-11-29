@@ -41,6 +41,9 @@
     <Compile Include="regressionQuiz.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SleepAndRegression.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="studentMain.py">
       <SubType>Code</SubType>
     </Compile>
