@@ -35,7 +35,13 @@
     <Compile Include="ages_net_worths.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classifyDT.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="class_vis.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="codingDecisionTreeMain.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PolynomialRegression.py">
