@@ -49,6 +49,9 @@
     <Compile Include="DecisionTreeAccuracy.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PerceptronUpdateRule.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PolynomialRegression.py">
       <SubType>Code</SubType>
     </Compile>
