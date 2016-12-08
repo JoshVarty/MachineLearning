@@ -37,7 +37,7 @@ class Perceptron:
         strength = np.dot(inputs, self.weights)
 
         # return 0 or 1 based on the threshold
-        if strength >= self.threshold:
+        if strength > self.threshold:
             return 1
         else:
             return 0
