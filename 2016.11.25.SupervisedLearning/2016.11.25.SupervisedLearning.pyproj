@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>48da38c3-80f6-42ab-8fb0-1287b0c3c226</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PerceptronUpdateRule.py</StartupFile>
+    <StartupFile>BuildXorNet.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -35,6 +35,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BuildAPerceptron.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BuildXorNet.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="classifyDT.py">
