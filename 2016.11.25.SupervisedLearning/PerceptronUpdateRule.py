@@ -22,7 +22,7 @@ class Perceptron:
         Initialize weights and threshold based on input arguments. Note that no
         type-checking is being performed here for simplicity.
         """
-        self.weights = weights
+        self.weights = weights.astype(float)
         self.threshold = threshold
 
 
@@ -34,7 +34,7 @@ class Perceptron:
         """
                
         # First calculate the strength with which the perceptron fires
-        strength = np.dot(values,self.weights)
+        strength = np.dot(values, self.weights)
         
         # Then return 0 or 1 depending on strength compared to threshold  
         return int(strength > self.threshold)
@@ -42,19 +42,26 @@ class Perceptron:
 
     def update(self, values, train, eta=.1):
         """
-        Takes in a 2D array @param values consisting of a LIST of inputs and a
-        1D array @param train, consisting of a corresponding list of expected
-        outputs. Updates internal weights according to the perceptron training
+        Takes in 
+            2D array [values] consisting of a LIST of inputs 
+            1D array [train], consisting of a corresponding list of expected outputs. 
+            optional learning rate [eta]
+        Updates internal weights according to the perceptron training
         rule using these values and an optional learning rate, @param eta.
         """
 
-        # YOUR CODE HERE
+        # for each data point...
+        for valueIndex, value in enumerate(values):
+            targetValue = train[valueIndex]
+            # obtain the neuron's prediction for that point
+            prediction = self.activate(value)
+            targetValue = train[valueIndex];
 
-        # TODO: for each data point...
-        
-            # TODO: obtain the neuron's prediction for that point
+            # update self.weights based on prediction accuracy, learning
+            for weightIndex, weight in enumerate(self.weights):
+                deltaWeight = eta * (targetValue - prediction) * value[weightIndex]
+                self.weights[weightIndex] = self.weights[weightIndex]  + deltaWeight;
 
-            # TODO: update self.weights based on prediction accuracy, learning
             # rate and input value
 
 def test():
@@ -65,15 +72,15 @@ def test():
     def sum_almost_equal(array1, array2, tol = 1e-6):
         return sum(abs(array1 - array2)) < tol
 
-    p1 = Perceptron(np.array([1,1,1]),0)
+    p1 = Perceptron(np.array([1.0,1.0,1.0]),0)
     p1.update(np.array([[2,0,-3]]), np.array([1]))
     assert sum_almost_equal(p1.weights, np.array([1.2, 1, 0.7]))
 
-    p2 = Perceptron(np.array([1,2,3]),0)
+    p2 = Perceptron(np.array([1.0,2.0,3.0]),0)
     p2.update(np.array([[3,2,1],[4,0,-1]]),np.array([0,0]))
     assert sum_almost_equal(p2.weights, np.array([0.7, 1.8, 2.9]))
 
-    p3 = Perceptron(np.array([3,0,2]),0)
+    p3 = Perceptron(np.array([3.0,0.0,2.0]),0)
     p3.update(np.array([[2,-2,4],[-1,-3,2],[0,2,1]]),np.array([0,1,0]))
     assert sum_almost_equal(p3.weights, np.array([2.7, -0.3, 1.7]))
 
