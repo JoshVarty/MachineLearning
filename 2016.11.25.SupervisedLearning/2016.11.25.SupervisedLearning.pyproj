@@ -58,6 +58,9 @@
     <Compile Include="PolynomialRegression.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="prep_terrain_data.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="regressionQuiz.py">
       <SubType>Code</SubType>
     </Compile>
@@ -68,6 +71,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="studentRegression.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SVMIntro.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
