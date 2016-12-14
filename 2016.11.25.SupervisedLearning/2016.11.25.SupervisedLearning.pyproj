@@ -40,6 +40,9 @@
     <Compile Include="BuildXorNet.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classify.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="classifyDT.py">
       <SubType>Code</SubType>
     </Compile>
@@ -65,6 +68,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SleepAndRegression.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="studentCode.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="studentMain.py">
