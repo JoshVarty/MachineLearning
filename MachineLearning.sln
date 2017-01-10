@@ -15,6 +15,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project2.BostonHousingPrice
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2016.11.25.SupervisedLearning", "2016.11.25.SupervisedLearning\2016.11.25.SupervisedLearning.pyproj", "{48DA38C3-80F6-42AB-8FB0-1287B0C3C226}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project3.FindingDonors", "Project3.FindingDonors\Project3.FindingDonors.pyproj", "{AE3F13B6-DF0D-467A-A9B0-8E69BC09C35A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,8 @@ Global
 		{9AB9A16B-2F75-4E10-812D-2D21448F7691}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48DA38C3-80F6-42AB-8FB0-1287B0C3C226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48DA38C3-80F6-42AB-8FB0-1287B0C3C226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3F13B6-DF0D-467A-A9B0-8E69BC09C35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3F13B6-DF0D-467A-A9B0-8E69BC09C35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
