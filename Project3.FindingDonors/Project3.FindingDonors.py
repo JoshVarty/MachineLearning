@@ -70,7 +70,7 @@ import pandas
 features = pandas.get_dummies(features_raw) 
 
 # Encode the 'income_raw' data to numerical values
-income = pandas.get_dummies(income_raw)
+income = pandas.get_dummies(income_raw)[[0]]
 
 # Print the number of features after one-hot encoding
 encoded = list(features.columns)
@@ -78,3 +78,27 @@ print "{} total features after one-hot encoding.".format(len(encoded))
 
 # Uncomment the following line to see the encoded feature names
 #print encoded
+
+
+
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from pandas import Series
+
+# Calculate accuracy
+y_true = income['<=50K']
+y_pred = Series(np.ones(len(y_true)))
+
+accuracy = accuracy_score(y_true, y_pred)
+precision = precision_score(y_true, y_pred)
+recall = recall_score(y_true, y_pred)
+
+# Calculate F-score using the formula above for beta = 0.5
+fscore = (1 + 0.5 * 0.5) * (precision * recall)/(0.5*0.5*precision + recall)
+
+# Print the results 
+print "Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]".format(accuracy, fscore)
+
+# Print the results 
+print "Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]".format(accuracy, fscore)
