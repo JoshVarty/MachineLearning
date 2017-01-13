@@ -8,7 +8,7 @@ from IPython.display import display # Allows the use of display() for DataFrames
 import visuals as vs
 
 # Pretty display for notebooks
-%matplotlib inline
+#%matplotlib inline
 
 # Load the Census dataset
 data = pd.read_csv("census.csv")
@@ -45,7 +45,7 @@ features_raw = data.drop('income', axis = 1)
 # Visualize skewed continuous features of original data
 vs.distribution(data)
 
-# Log-transform the skewed features
+## Log-transform the skewed features
 skewed = ['capital-gain', 'capital-loss']
 features_raw[skewed] = data[skewed].apply(lambda x: np.log(x + 1))
 
@@ -80,6 +80,17 @@ print "{} total features after one-hot encoding.".format(len(encoded))
 #print encoded
 
 
+# Import train_test_split
+from sklearn.cross_validation import train_test_split
+
+# Split the 'features' and 'income' data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(features, income, test_size = 0.2, random_state = 0)
+
+# Show the results of the split
+print "Training set has {} samples.".format(X_train.shape[0])
+print "Testing set has {} samples.".format(X_test.shape[0])
+
+
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
@@ -102,3 +113,90 @@ print "Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]".format(accura
 
 # Print the results 
 print "Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]".format(accuracy, fscore)
+
+
+
+
+
+# Import two metrics from sklearn - fbeta_score and accuracy_score
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import fbeta_score
+
+def train_predict(learner, sample_size, X_train, y_train, X_test, y_test): 
+    '''
+    inputs:
+       - learner: the learning algorithm to be trained and predicted on
+       - sample_size: the size of samples (number) to be drawn from training set
+       - X_train: features training set
+       - y_train: income training set
+       - X_test: features testing set
+       - y_test: income testing set
+    '''
+    
+    results = {}
+    
+
+    # Fit the learner to the training data using slicing with 'sample_size'
+    start = time() # Get start time
+    learner.fit(X_train[:sample_size], y_train[:sample_size])
+    end = time() # Get end time
+    
+    # Calculate the training time
+    results['train_time'] = end - start
+        
+    # Get the predictions on the test set,
+    #       then get predictions on the first 300 training samples
+    start = time() # Get start time
+    predictions_test = learner.predict(X_test)
+    predictions_train = learner.predict(X_train)
+    end = time() # Get end time
+    
+    # Calculate the total prediction time
+    results['pred_time'] = end - start
+            
+    # Compute accuracy on the first 300 training samples
+    results['acc_train'] = accuracy_score(y_train[:sample_size], predictions_train[:sample_size])
+        
+    # Compute accuracy on test set
+    results['acc_test'] = accuracy_score(y_test, predictions_test)
+    
+    # Compute F-score on the the first 300 training samples
+    results['f_train'] = fbeta_score(y_train[:sample_size], predictions_train[:sample_size], beta=0.5)
+        
+    # Compute F-score on the test set
+    results['f_test'] = fbeta_score(y_test, predictions_test, beta=0.5)
+       
+    # Success
+    print "{} trained on {} samples.".format(learner.__class__.__name__, sample_size)
+        
+    # Return the results
+    return results
+
+
+
+
+# Import the three supervised learning models from sklearn
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
+
+# Initialize the three models
+clf_A = LogisticRegression()
+clf_B = DecisionTreeClassifier()
+clf_C = GaussianNB()
+
+# Calculate the number of samples for 1%, 10%, and 100% of the training data
+samples_1 = int(float(len(X_train)) * 0.01)
+samples_10 = int(float(len(X_train)) * 0.10)
+samples_100 = len(X_train)
+
+# Collect results on the learners
+results = {}
+for clf in [clf_A, clf_B, clf_C]:
+    clf_name = clf.__class__.__name__
+    results[clf_name] = {}
+    for i, samples in enumerate([samples_1, samples_10, samples_100]):
+        results[clf_name][i] = train_predict(clf, samples, X_train, y_train, X_test, y_test)
+
+# Run metrics visualization for the three supervised learning models chosen
+vs.evaluate(results, accuracy, fscore)
