@@ -204,7 +204,6 @@ vs.evaluate(results, accuracy, fscore)
 
 
 
-
 # Import 'GridSearchCV', 'make_scorer', and any other necessary libraries
 from sklearn.metrics import make_scorer
 from sklearn.grid_search import GridSearchCV
@@ -217,7 +216,7 @@ cv_sets = ShuffleSplit(X_train.shape[0], n_iter = 10, test_size = 0.20, random_s
 clf = LogisticRegression()
 
 # Create the parameters list you wish to tune
-parameters = {'C': [1, 10, 50, 100]}
+parameters = {'C': [1, 3, 5, 10, 25, 50, 100]}
 
 # Make an fbeta_score scoring object
 scorer = make_scorer(fbeta_score, beta=0.5)
@@ -231,8 +230,8 @@ grid_fit = grid_obj.fit(X_train, y_train.values.ravel())
 # Get the estimator
 best_clf = grid_fit.best_estimator_
 
-# Make predictions using the unoptimized and model
-predictions = (clf.fit(X_train, y_train.values.ravel())).predict(X_test)
+# Make predictions using the unoptimized and models
+predictions = (clf.fit(X_train,  y_train.values.ravel())).predict(X_test)
 best_predictions = best_clf.predict(X_test)
 
 # Report the before-and-afterscores
@@ -242,3 +241,21 @@ print "F-score on testing data: {:.4f}".format(fbeta_score(y_test, predictions, 
 print "\nOptimized Model\n------"
 print "Final accuracy score on the testing data: {:.4f}".format(accuracy_score(y_test, best_predictions))
 print "Final F-score on the testing data: {:.4f}".format(fbeta_score(y_test, best_predictions, beta = 0.5))
+
+
+
+
+
+
+# Import a supervised learning model that has 'feature_importances_'
+from sklearn.tree import DecisionTreeClassifier
+
+# Train the supervised model on the training set 
+model = DecisionTreeClassifier();
+model.fit(X_train, y_train)
+
+# Extract the feature importances
+importances = model.feature_importances_
+
+# Plot
+vs.feature_plot(importances, X_train, y_train)
