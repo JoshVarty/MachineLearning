@@ -200,3 +200,45 @@ for clf in [clf_A, clf_B, clf_C]:
 
 # Run metrics visualization for the three supervised learning models chosen
 vs.evaluate(results, accuracy, fscore)
+
+
+
+
+
+# Import 'GridSearchCV', 'make_scorer', and any other necessary libraries
+from sklearn.metrics import make_scorer
+from sklearn.grid_search import GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.cross_validation import ShuffleSplit
+
+cv_sets = ShuffleSplit(X_train.shape[0], n_iter = 10, test_size = 0.20, random_state = 0)
+
+# Initialize the classifier
+clf = LogisticRegression()
+
+# Create the parameters list you wish to tune
+parameters = {'C': [1, 10, 50, 100]}
+
+# Make an fbeta_score scoring object
+scorer = make_scorer(fbeta_score, beta=0.5)
+
+# Perform grid search on the classifier using 'scorer' as the scoring method
+grid_obj = GridSearchCV(clf, parameters, scorer, cv=cv_sets)
+
+# Fit the grid search object to the training data and find the optimal parameters
+grid_fit = grid_obj.fit(X_train, y_train.values.ravel())
+
+# Get the estimator
+best_clf = grid_fit.best_estimator_
+
+# Make predictions using the unoptimized and model
+predictions = (clf.fit(X_train, y_train.values.ravel())).predict(X_test)
+best_predictions = best_clf.predict(X_test)
+
+# Report the before-and-afterscores
+print "Unoptimized model\n------"
+print "Accuracy score on testing data: {:.4f}".format(accuracy_score(y_test, predictions))
+print "F-score on testing data: {:.4f}".format(fbeta_score(y_test, predictions, beta = 0.5))
+print "\nOptimized Model\n------"
+print "Final accuracy score on the testing data: {:.4f}".format(accuracy_score(y_test, best_predictions))
+print "Final F-score on the testing data: {:.4f}".format(fbeta_score(y_test, best_predictions, beta = 0.5))
