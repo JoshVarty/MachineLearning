@@ -245,8 +245,6 @@ print "Final F-score on the testing data: {:.4f}".format(fbeta_score(y_test, bes
 
 
 
-
-
 # Import a supervised learning model that has 'feature_importances_'
 from sklearn.tree import DecisionTreeClassifier
 
@@ -259,3 +257,5 @@ importances = model.feature_importances_
 
 # Plot
 vs.feature_plot(importances, X_train, y_train)
+
+
