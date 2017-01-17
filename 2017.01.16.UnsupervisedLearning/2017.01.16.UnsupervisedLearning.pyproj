@@ -30,6 +30,9 @@
     <Compile Include="k_means_cluster.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MinMaxRescaling.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
