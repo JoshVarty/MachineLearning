@@ -92,18 +92,13 @@ print "Testing set has {} samples.".format(X_test.shape[0])
 
 
 
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from pandas import Series
 
-# Calculate accuracy
-y_true = income['<=50K']
-y_pred = Series(np.ones(len(y_true)))
-
-accuracy = accuracy_score(y_true, y_pred)
-precision = precision_score(y_true, y_pred)
-recall = recall_score(y_true, y_pred)
+# accuracy = # of items labelled correctly / total number of items
+accuracy = float(n_greater_50k) / float(n_records)
+# precision = True Positive / (True Positive + False Positive)
+precision = float(n_greater_50k) / float(n_greater_50k + n_at_most_50k)
+# recall = True Positive / (True Positive + False Negative)
+recall = float(n_greater_50k) / (n_greater_50k + 0)
 
 # Calculate F-score using the formula above for beta = 0.5
 fscore = (1 + 0.5 * 0.5) * (precision * recall)/(0.5*0.5*precision + recall)
