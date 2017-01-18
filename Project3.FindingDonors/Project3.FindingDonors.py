@@ -106,10 +106,6 @@ fscore = (1 + 0.5 * 0.5) * (precision * recall)/(0.5*0.5*precision + recall)
 # Print the results 
 print "Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]".format(accuracy, fscore)
 
-# Print the results 
-print "Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]".format(accuracy, fscore)
-
-
 
 
 
@@ -140,23 +136,23 @@ def train_predict(learner, sample_size, X_train, y_train, X_test, y_test):
     results['train_time'] = end - start
         
     # Get the predictions on the test set,
-    #       then get predictions on the first 300 training samples
+    # then get predictions on the first 300 training samples
     start = time() # Get start time
     predictions_test = learner.predict(X_test)
-    predictions_train = learner.predict(X_train)
+    predictions_train = learner.predict(X_train[:300])
     end = time() # Get end time
     
     # Calculate the total prediction time
     results['pred_time'] = end - start
             
     # Compute accuracy on the first 300 training samples
-    results['acc_train'] = accuracy_score(y_train[:sample_size], predictions_train[:sample_size])
+    results['acc_train'] = accuracy_score(y_train[:300], predictions_train[:300])
         
     # Compute accuracy on test set
     results['acc_test'] = accuracy_score(y_test, predictions_test)
     
     # Compute F-score on the the first 300 training samples
-    results['f_train'] = fbeta_score(y_train[:sample_size], predictions_train[:sample_size], beta=0.5)
+    results['f_train'] = fbeta_score(y_train[:300], predictions_train[:300], beta=0.5)
         
     # Compute F-score on the test set
     results['f_test'] = fbeta_score(y_test, predictions_test, beta=0.5)
@@ -169,16 +165,15 @@ def train_predict(learner, sample_size, X_train, y_train, X_test, y_test):
 
 
 
-
 # Import the three supervised learning models from sklearn
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 
 # Initialize the three models
-clf_A = LogisticRegression()
+clf_A = LogisticRegression(random_state=4)
 clf_B = DecisionTreeClassifier()
-clf_C = GaussianNB()
+clf_C = KNeighborsClassifier()
 
 # Calculate the number of samples for 1%, 10%, and 100% of the training data
 samples_1 = int(float(len(X_train)) * 0.01)
@@ -191,10 +186,13 @@ for clf in [clf_A, clf_B, clf_C]:
     clf_name = clf.__class__.__name__
     results[clf_name] = {}
     for i, samples in enumerate([samples_1, samples_10, samples_100]):
-        results[clf_name][i] = train_predict(clf, samples, X_train, y_train, X_test, y_test)
+        results[clf_name][i] = train_predict(clf, samples, X_train, y_train.values.ravel(), X_test, y_test.values.ravel())
 
 # Run metrics visualization for the three supervised learning models chosen
 vs.evaluate(results, accuracy, fscore)
+
+
+
 
 
 
@@ -208,7 +206,7 @@ from sklearn.cross_validation import ShuffleSplit
 cv_sets = ShuffleSplit(X_train.shape[0], n_iter = 10, test_size = 0.20, random_state = 0)
 
 # Initialize the classifier
-clf = LogisticRegression()
+clf = LogisticRegression(random_state=4)
 
 # Create the parameters list you wish to tune
 parameters = {'C': [1, 3, 5, 10, 25, 50, 100]}
