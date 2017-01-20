@@ -27,6 +27,9 @@
     <InterpreterReference Include="{7c316a1a-1182-427e-9cc6-73b48a84b6e6}\2.7" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="eigenfaces.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="k_means_cluster.py">
       <SubType>Code</SubType>
     </Compile>

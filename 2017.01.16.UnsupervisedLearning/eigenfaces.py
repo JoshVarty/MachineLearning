@@ -144,3 +144,11 @@ eigenface_titles = ["eigenface %d" % i for i in range(eigenfaces.shape[0])]
 plot_gallery(eigenfaces, eigenface_titles, h, w)
 
 pl.show()
+
+
+
+#Question:
+#How much of the variance is explained by the first principal component? The second?
+print(pca.explained_variance_ratio_[0])
+print(pca.explained_variance_ratio_[1])
+
