@@ -12,6 +12,8 @@
     <OutputPath>.</OutputPath>
     <Name>Project4.CustomerSegments</Name>
     <RootNamespace>Project4.CustomerSegments</RootNamespace>
+    <InterpreterId>{7c316a1a-1182-427e-9cc6-73b48a84b6e6}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +32,9 @@
     <Content Include="customer_segments.ipynb" />
     <Content Include="project_description.md" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{7c316a1a-1182-427e-9cc6-73b48a84b6e6}\2.7" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

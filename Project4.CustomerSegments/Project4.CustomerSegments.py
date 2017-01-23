@@ -31,13 +31,13 @@ print "Chosen samples of wholesale customers dataset:"
 display(samples)
 
 
-
+feature = 'Grocery'
 # Make a copy of the DataFrame, using the 'drop' function to drop the given feature
-new_data = data.drop('Detergents_Paper', 1)
+new_data = data.drop(feature, 1)
 
 from sklearn.cross_validation import train_test_split
 # Split the data into training and testing sets using the given feature as the target
-X_train, X_test, y_train, y_test = train_test_split(new_data, data['Detergents_Paper'], test_size = 0.25, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(new_data, data[feature], test_size = 0.25, random_state = 42)
 
 from sklearn.tree import DecisionTreeRegressor
 # Create a decision tree regressor and fit it to the training set
@@ -46,3 +46,45 @@ regressor = regressor.fit(X_train, y_train)
 
 # Report the score of the prediction using the testing set
 score = regressor.score(X_test, y_test)
+
+print score
+
+
+    
+# Scale the data using the natural logarithm
+log_data = data.apply(lambda x : np.log(x + 1))
+
+# TODO: Scale the sample data using the natural logarithm
+log_samples = samples.apply(lambda x : np.log(x + 1))
+
+# Produce a scatter matrix for each pair of newly-transformed features
+pd.scatter_matrix(log_data, alpha = 0.3, figsize = (14,8), diagonal = 'kde');
+
+
+
+
+# For each feature find the data points with extreme high or low values
+for feature in log_data.keys():
+    
+    # Calculate Q1 (25th percentile of the data) for the given feature
+    Q1 = np.percentile(log_data[feature], q=25)
+    
+    # Calculate Q3 (75th percentile of the data) for the given feature
+    Q3 = np.percentile(log_data[feature], q=75)
+    
+    # TODO: Use the interquartile range to calculate an outlier step (1.5 times the interquartile range)
+    step = (Q3 - Q1) * 1.5
+    print feature
+    print Q1
+    print Q3
+    print step 
+    
+    # Display the outliers
+    print "Data points considered outliers for the feature '{}':".format(feature)
+    display(log_data[~((log_data[feature] >= Q1 - step) & (log_data[feature] <= Q3 + step))])
+    
+# OPTIONAL: Select the indices for data points you wish to remove
+outliers  = ['Grocery', 'Milk', 'Detergents_Paper']
+
+# Remove the outliers, if any were specified
+good_data = log_data.drop(log_data.index[outliers]).reset_index(drop = True)
