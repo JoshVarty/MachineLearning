@@ -62,7 +62,6 @@ pd.scatter_matrix(log_data, alpha = 0.3, figsize = (14,8), diagonal = 'kde');
 
 
 
-
 # For each feature find the data points with extreme high or low values
 for feature in log_data.keys():
     
@@ -72,19 +71,32 @@ for feature in log_data.keys():
     # Calculate Q3 (75th percentile of the data) for the given feature
     Q3 = np.percentile(log_data[feature], q=75)
     
-    # TODO: Use the interquartile range to calculate an outlier step (1.5 times the interquartile range)
+    # Use the interquartile range to calculate an outlier step (1.5 times the interquartile range)
     step = (Q3 - Q1) * 1.5
-    print feature
-    print Q1
-    print Q3
-    print step 
     
     # Display the outliers
     print "Data points considered outliers for the feature '{}':".format(feature)
     display(log_data[~((log_data[feature] >= Q1 - step) & (log_data[feature] <= Q3 + step))])
     
 # OPTIONAL: Select the indices for data points you wish to remove
-outliers  = ['Grocery', 'Milk', 'Detergents_Paper']
+outliers  = [154]
 
 # Remove the outliers, if any were specified
 good_data = log_data.drop(log_data.index[outliers]).reset_index(drop = True)
+
+
+
+
+#Import sklearn.decomposition.PCA and assign the results of fitting PCA in six dimensions with good_data to pca.
+#Apply a PCA transformation of the sample log-data log_samples using pca.transform, and assign the results to pca_samples.
+from sklearn.decomposition import PCA
+
+# Apply PCA by fitting the good data with the same number of dimensions as features
+pca = PCA(n_components=6)
+pca = pca.fit(good_data)
+
+# Transform the sample log-data using the PCA fit above
+pca_samples = pca.transform(good_data)
+
+# Generate PCA results plot
+pca_results = vs.pca_results(good_data, pca)
