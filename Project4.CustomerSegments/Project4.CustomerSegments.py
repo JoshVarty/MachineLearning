@@ -145,3 +145,21 @@ from sklearn.metrics import silhouette_score
 # Calculate the mean silhouette coefficient for the number of clusters chosen
 score = silhouette_score(reduced_data, preds)
 print score
+
+
+
+
+# Apply the inverse transform to centers using pca.inverse_transform and assign the new centers to log_centers.
+# Apply the inverse function of np.log to log_centers using np.exp and assign the true centers to true_centers.
+
+# Inverse transform the centers
+log_centers = pca.inverse_transform(centers)
+
+# TODO: Exponentiate the centers
+true_centers = np.exp(log_centers)
+
+# Display the true centers
+segments = ['Segment {}'.format(i) for i in range(0,len(centers))]
+true_centers = pd.DataFrame(np.round(true_centers), columns = data.keys())
+true_centers.index = segments
+display(true_centers)
