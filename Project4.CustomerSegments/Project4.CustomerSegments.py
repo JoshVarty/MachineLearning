@@ -116,3 +116,32 @@ pca_samples = pca.transform(log_samples)
 
 # Create a DataFrame for the reduced data
 reduced_data = pd.DataFrame(reduced_data, columns = ['Dimension 1', 'Dimension 2'])
+
+
+
+
+# Fit a clustering algorithm to the reduced_data and assign it to clusterer.
+# Predict the cluster for each data point in reduced_data using clusterer.predict and assign them to preds.
+# Find the cluster centers using the algorithm's respective attribute and assign them to centers.
+# Predict the cluster for each sample data point in pca_samples and assign them sample_preds.
+# Import sklearn.metrics.silhouette_score and calculate the silhouette score of reduced_data against preds.
+#    Assign the silhouette score to score and print the result.
+
+from sklearn.mixture import GMM
+# Apply your clustering algorithm of choice to the reduced data 
+clusterer = GMM(n_components=2)
+clusterer.fit(reduced_data)
+
+# Predict the cluster for each data point
+preds = clusterer.predict(reduced_data)
+
+# Find the cluster centers
+centers = clusterer.means_
+
+# Predict the cluster for each transformed sample data point
+sample_preds = clusterer.predict(pca_samples)
+
+from sklearn.metrics import silhouette_score
+# Calculate the mean silhouette coefficient for the number of clusters chosen
+score = silhouette_score(reduced_data, preds)
+print score
