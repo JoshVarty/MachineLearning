@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>9556ce61-7c29-4cc9-ab59-70795d158611</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Project5.Smartcab</Name>
+    <RootNamespace>Project5.Smartcab</RootNamespace>
+    <InterpreterId>{7c316a1a-1182-427e-9cc6-73b48a84b6e6}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{7c316a1a-1182-427e-9cc6-73b48a84b6e6}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\" />
+    <Folder Include="logs\" />
+    <Folder Include="smartcab\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\car-black.png" />
+    <Content Include="images\car-blue.png" />
+    <Content Include="images\car-cyan.png" />
+    <Content Include="images\car-green.png" />
+    <Content Include="images\car-magenta.png" />
+    <Content Include="images\car-orange.png" />
+    <Content Include="images\car-red.png" />
+    <Content Include="images\car-white.png" />
+    <Content Include="images\car-yellow.png" />
+    <Content Include="images\east-west.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\north-south.png" />
+    <Content Include="logs\.gitignore" />
+    <Content Include="project_description.md" />
+    <Content Include="README.md" />
+    <Content Include="smartcab.ipynb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="smartcab\agent.py" />
+    <Compile Include="smartcab\environment.py" />
+    <Compile Include="smartcab\planner.py" />
+    <Compile Include="smartcab\simulator.py" />
+    <Compile Include="smartcab\__init__.py" />
+    <Compile Include="visuals.py" />
+  </ItemGroup>
+  <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
+  <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>

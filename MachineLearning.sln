@@ -4711,6 +4711,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "emails_by_address", "emails
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project4.CustomerSegments", "Project4.CustomerSegments\Project4.CustomerSegments.pyproj", "{2B5DF142-0205-4DD6-A8F8-4B62590495CC}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project5.Smartcab", "Project5.Smartcab\Project5.Smartcab.pyproj", "{9556CE61-7C29-4CC9-AB59-70795D158611}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4735,6 +4737,8 @@ Global
 		{4CA0781F-9B23-4A69-957A-7D8EF2817227}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B5DF142-0205-4DD6-A8F8-4B62590495CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B5DF142-0205-4DD6-A8F8-4B62590495CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9556CE61-7C29-4CC9-AB59-70795D158611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9556CE61-7C29-4CC9-AB59-70795D158611}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
