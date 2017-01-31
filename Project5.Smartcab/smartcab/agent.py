@@ -60,10 +60,12 @@ class LearningAgent(Agent):
         #   If it is not, create a dictionary in the Q-table for the current 'state'
         #   For each action, set the Q-value for the state-action pair to 0
         
-        state = None
+        light = inputs['light']
+        left = inputs['left']
+        oncoming = inputs['oncoming']
+        state = (light, left, oncoming, waypoint)
 
         return state
-
 
     def get_maxQ(self, state):
         """ The get_max_Q function is called when the agent is asked to find the
