@@ -69,7 +69,7 @@ class LearningAgent(Agent):
         light = inputs['light']
         left = inputs['left']
         oncoming = inputs['oncoming']
-        state = (light, left, oncoming, waypoint)
+        state = (str(light), str(left), str(oncoming), str(waypoint))
 
         return state
 
@@ -77,13 +77,15 @@ class LearningAgent(Agent):
         """ The get_max_Q function is called when the agent is asked to find the
             maximum Q-value of all actions based on the 'state' the smartcab is in. """
 
-        ########### 
-        ## TO DO ##
-        ###########
         # Calculate the maximum Q-value of all actions for a given state
+        highestKey = 0;
+        highestValue = self.Q[state][self.valid_actions[highestKey]]
+        for key, value in self.Q[state].iteritems():
+            if value > highestValue:
+                highestKey = key
+                highestValue = value
 
-        maxQ = None
-
+        maxQ = highestValue
         return maxQ 
 
 
@@ -116,9 +118,6 @@ class LearningAgent(Agent):
         self.next_waypoint = self.planner.next_waypoint()
         action = None
 
-        ########### 
-        ## TO DO ##
-        ###########
         if not self.learning:
             # When not learning, choose a random action
             action = random.choice(self.valid_actions)
@@ -134,14 +133,13 @@ class LearningAgent(Agent):
 
         else:
             #Otherwise, choose an action with the highest Q-value for the current state
-            highestKey = 0;
-            highestValue = self.Q[state][self.valid_actions[highestKey]]
+            highestKey, highestValue = self.Q[state].iteritems().next()
             for key, value in self.Q[state].iteritems():
                 if value > highestValue:
                     highestKey = key
                     highestValue = value
 
-            action = self.Q[state][self.valid_actions[highestKey]]
+            action = highestKey;
             return action
 
 
@@ -150,13 +148,11 @@ class LearningAgent(Agent):
             receives an award. This function does not consider future rewards 
             when conducting learning. """
 
-        ########### 
-        ## TO DO ##
-        ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-
-        return
+        if self.learning:
+            previousValue = self.Q[state][action];
+            self.Q[state][action] = self.alpha * reward + (1 - self.alpha) *  previousValue;
 
 
     def update(self):
