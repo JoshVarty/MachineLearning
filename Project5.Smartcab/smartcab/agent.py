@@ -37,7 +37,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Update epsilon using a decay function of your choice
-        self.epsilon = self.epsilon * 0.5
+        self.epsilon = self.epsilon * 0.95;
 
         # Update additional class parameters as needed
 
@@ -69,7 +69,7 @@ class LearningAgent(Agent):
         light = inputs['light']
         left = inputs['left']
         oncoming = inputs['oncoming']
-        state = (str(light), str(left), str(oncoming), str(waypoint))
+        state = (str(light), str(waypoint), str(left), str(oncoming))
 
         return state
 
@@ -100,11 +100,10 @@ class LearningAgent(Agent):
         if not self.Q.has_key(state):
             self.Q[state] = {}
 
-
-        qState = self.Q[state]
-        #   Then, for each action available, set the initial Q-value to 0.0
-        for action in self.valid_actions:
-            qState[action] = 0.0
+            qState = self.Q[state]
+            #   Then, for each action available, set the initial Q-value to 0.0
+            for action in self.valid_actions:
+                qState[action] = 0.0
 
         return
 
@@ -152,8 +151,8 @@ class LearningAgent(Agent):
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         if self.learning:
             previousValue = self.Q[state][action];
-            self.Q[state][action] = self.alpha * reward + (1 - self.alpha) *  previousValue;
-
+            newValue = ((1 - self.alpha) *  previousValue) + (self.alpha * reward);
+            self.Q[state][action] = newValue;
 
     def update(self):
         """ The update function is called when a time step is completed in the 
@@ -187,7 +186,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent, learning=True)
+    agent = env.create_agent(LearningAgent, learning=True, alpha=0.3)
     
     ##############
     # Follow the driving agent
@@ -202,7 +201,7 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=0.01, log_metrics=True)
+    sim = Simulator(env, update_delay=0.01, log_metrics=True, optimized=True)
     
     ##############
     # Run the simulator
