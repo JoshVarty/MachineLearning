@@ -132,13 +132,18 @@ class LearningAgent(Agent):
 
         else:
             #Otherwise, choose an action with the highest Q-value for the current state
+            candidateKeys = []
             highestKey, highestValue = self.Q[state].iteritems().next()
             for key, value in self.Q[state].iteritems():
-                if value > highestValue:
+                if value == highestValue:
+                    candidateKeys.append(key)
+                elif value > highestValue:
                     highestKey = key
                     highestValue = value
+                    candidateKeys = []
+                    candidateKeys.append(highestKey)
 
-            action = highestKey;
+            action = random.choice(candidateKeys)
             return action
 
 
