@@ -4713,6 +4713,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project4.CustomerSegments",
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project5.Smartcab", "Project5.Smartcab\Project5.Smartcab.pyproj", "{9556CE61-7C29-4CC9-AB59-70795D158611}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2017.02.05.DeepLearning", "2017.02.05.DeepLearning\2017.02.05.DeepLearning.pyproj", "{7648A539-94A2-4DE5-81E9-086E58DE5071}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4739,6 +4741,8 @@ Global
 		{2B5DF142-0205-4DD6-A8F8-4B62590495CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9556CE61-7C29-4CC9-AB59-70795D158611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9556CE61-7C29-4CC9-AB59-70795D158611}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7648A539-94A2-4DE5-81E9-086E58DE5071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7648A539-94A2-4DE5-81E9-086E58DE5071}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
