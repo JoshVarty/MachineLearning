@@ -4715,6 +4715,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project5.Smartcab", "Projec
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2017.02.05.DeepLearning", "2017.02.05.DeepLearning\2017.02.05.DeepLearning.pyproj", "{7648A539-94A2-4DE5-81E9-086E58DE5071}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ProjectExtra.TwoSigma", "ProjectExtra.TwoSigma\ProjectExtra.TwoSigma.pyproj", "{3030304B-CAA2-4A93-BB5B-FC3626A11480}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4743,6 +4745,8 @@ Global
 		{9556CE61-7C29-4CC9-AB59-70795D158611}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7648A539-94A2-4DE5-81E9-086E58DE5071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7648A539-94A2-4DE5-81E9-086E58DE5071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3030304B-CAA2-4A93-BB5B-FC3626A11480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3030304B-CAA2-4A93-BB5B-FC3626A11480}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
