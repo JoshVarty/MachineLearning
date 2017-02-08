@@ -13,7 +13,7 @@
     <OutputPath>.</OutputPath>
     <Name>2017.02.05.DeepLearning</Name>
     <RootNamespace>2017.02.05.DeepLearning</RootNamespace>
-    <InterpreterId>{7c316a1a-1182-427e-9cc6-73b48a84b6e6}</InterpreterId>
+    <InterpreterId>{b057ba5c-9400-4f33-aa16-c1032470b09b}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -32,9 +32,12 @@
     <Compile Include="softmax.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tensor_flow_test.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="{7c316a1a-1182-427e-9cc6-73b48a84b6e6}\2.7" />
+    <InterpreterReference Include="{b057ba5c-9400-4f33-aa16-c1032470b09b}\2.7" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
