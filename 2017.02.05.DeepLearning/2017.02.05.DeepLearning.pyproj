@@ -29,6 +29,9 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="1_notmnist.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="softmax.py">
       <SubType>Code</SubType>
     </Compile>
