@@ -90,3 +90,21 @@ def maybe_extract(filename, force=False):
 train_folders = maybe_extract(train_filename)
 test_folders = maybe_extract(test_filename)
 
+#Problem 1
+#Let's take a peek at some of the data to make sure it looks sensible. 
+#Each exemplar should be an image of a character A through J rendered in a different font. 
+#Display a sample of the images that we just downloaded. Hint: you can use the package IPython.display.
+
+from IPython.display import Image
+import random
+#Select random folder
+folder = random.choice(test_folders)
+files = os.listdir(folder)
+
+for i in range(0,3):
+    image_name = random.choice(files)
+    image_path = os.path.join(folder, image_name)
+    image = Image(filename=image_path)
+    print(image_path)
+    display(image)
+
