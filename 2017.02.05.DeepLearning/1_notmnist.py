@@ -186,3 +186,25 @@ with open(pickle_file, 'rb') as f:
     sample_image = letter_set[sample_idx, :, :]  # extract a 2D slice
     plt.figure()
     plt.imshow(sample_image)  # display it
+
+
+
+#Problem 3
+#Another check: we expect the data to be balanced across classes. Verify that.
+maxsize = -sys.maxsize - 1
+minsize = sys.maxsize;
+for i in range(0, len(train_datasets)):
+    pickle_file = train_datasets[i]
+    with open(pickle_file, 'rb') as f:
+        letter_set = pickle.load(f)
+        length = len(letter_set)
+        if length > maxsize:
+            maxsize = length
+        if length < minsize:
+            minsize = length
+        print(pickle_file)
+        print("Length " + str(length))
+
+print("Min: " + str(minsize))
+print("Max: " + str(maxsize))
+print("Maximum difference in class size: " + str(maxsize - minsize))
