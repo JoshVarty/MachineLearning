@@ -31,6 +31,9 @@
     <Compile Include="1_notmnist.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="2_fullyconnected.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="softmax.py">
       <SubType>Code</SubType>
     </Compile>
