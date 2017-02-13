@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7648a539-94a2-4de5-81e9-086e58de5071</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>3_regularization.py</StartupFile>
+    <StartupFile>4_convolutions.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -35,6 +35,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="3_regularization.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="4_convolutions.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="softmax.py">
