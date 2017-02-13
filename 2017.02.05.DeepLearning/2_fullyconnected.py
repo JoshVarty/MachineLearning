@@ -105,17 +105,13 @@ def LogisticRegression():
         _, l, predictions = session.run([optimizer, loss, train_prediction])
         if (step % 100 == 0):
           print('Loss at step %d: %f' % (step, l))
-          print('Training accuracy: %.1f%%' % accuracy(
-            predictions, train_labels[:train_subset, :]))
+          print('Training accuracy: %.1f%%' % accuracy(predictions, train_labels[:train_subset, :]))
           # Calling .eval() on valid_prediction is basically like calling run(), but
           # just to get that one numpy array. Note that it recomputes all its graph
           # dependencies.
-          print('Validation accuracy: %.1f%%' % accuracy(
-            valid_prediction.eval(), valid_labels))
+          print('Validation accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
 
       print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
-
-
 
 
 
