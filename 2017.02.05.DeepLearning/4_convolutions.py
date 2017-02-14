@@ -34,8 +34,15 @@ def reformat(dataset, labels):
   return dataset, labels
 
 train_dataset, train_labels = reformat(train_dataset, train_labels)
+train_dataset = train_dataset[:100000]
+train_labels = train_labels[:100000]
 valid_dataset, valid_labels = reformat(valid_dataset, valid_labels)
+valid_dataset = valid_dataset[:5000]
+valid_labels = valid_labels[:5000]
+
 test_dataset, test_labels = reformat(test_dataset, test_labels)
+test_dataset = test_dataset[:5000]
+test_labels = test_labels[:5000]
 print('Training set', train_dataset.shape, train_labels.shape)
 print('Validation set', valid_dataset.shape, valid_labels.shape)
 print('Test set', test_dataset.shape, test_labels.shape)
@@ -142,9 +149,6 @@ def ConvNet_Pool():
       layer4_weights = tf.Variable(tf.truncated_normal([num_hidden, num_labels], stddev=0.1))
       layer4_biases = tf.Variable(tf.constant(1.0, shape=[num_labels]))
       
-      def max_pool_2x2(x):
-        return 
-
       # Model.
       def model(data):
         conv = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
@@ -152,9 +156,9 @@ def ConvNet_Pool():
         pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
         conv = tf.nn.conv2d(pool_1, layer2_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer2_biases)
-        pool_2 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-        shape = pool_2.get_shape().as_list()
-        reshape = tf.reshape(pool_2, [shape[0], shape[1] * shape[2] * shape[3]])
+        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        shape = pool_1.get_shape().as_list()
+        reshape = tf.reshape(pool_1, [shape[0], shape[1] * shape[2] * shape[3]])
         hidden = tf.nn.relu(tf.matmul(reshape, layer3_weights) + layer3_biases)
         return tf.matmul(hidden, layer4_weights) + layer4_biases
       
