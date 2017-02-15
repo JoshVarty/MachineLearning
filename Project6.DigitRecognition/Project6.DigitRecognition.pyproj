@@ -5,15 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>da90b9ab-81ff-44d4-b674-0c5e84b46abc</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>image_concatenator.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Project6.DigitRecognition</Name>
     <RootNamespace>Project6.DigitRecognition</RootNamespace>
-    <InterpreterId>{7c316a1a-1182-427e-9cc6-73b48a84b6e6}</InterpreterId>
+    <InterpreterId>{b057ba5c-9400-4f33-aa16-c1032470b09b}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -33,7 +32,12 @@
     <Content Include="project_description.md" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="{7c316a1a-1182-427e-9cc6-73b48a84b6e6}\2.7" />
+    <InterpreterReference Include="{b057ba5c-9400-4f33-aa16-c1032470b09b}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="image_concatenator.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
