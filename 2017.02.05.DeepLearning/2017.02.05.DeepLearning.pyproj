@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7648a539-94a2-4de5-81e9-086e58de5071</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>4_convolutions.py</StartupFile>
+    <StartupFile>5_word2vec.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -38,6 +38,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="4_convolutions.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="5_word2vec.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="softmax.py">
