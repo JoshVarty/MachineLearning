@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>da90b9ab-81ff-44d4-b674-0c5e84b46abc</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>image_concatenator.py</StartupFile>
+    <StartupFile>basic_model.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -35,6 +35,9 @@
     <InterpreterReference Include="{b057ba5c-9400-4f33-aa16-c1032470b09b}\2.7" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="basic_model.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="image_concatenator.py">
       <SubType>Code</SubType>
     </Compile>
