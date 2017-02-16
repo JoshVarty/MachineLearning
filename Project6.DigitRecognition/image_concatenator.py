@@ -2,6 +2,7 @@
 
 
 from __future__ import print_function
+import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 from six.moves import cPickle as pickle
@@ -26,6 +27,7 @@ with open(dest_file_path, 'rb') as f:
   print('Test set', test_dataset.shape, test_labels.shape)
 
 
+from IPython.display import Image
 def generate(dataset):
     newDataSet = []
     numImages = len(dataset)
@@ -45,16 +47,15 @@ def generate(dataset):
 
         for i in range(imageLength, 5):
             blankImage = np.zeros((28,28))
+            blankImage.fill(0)
+
             newImage[:, (i) * 28 : (i+1) * 28] = blankImage
             print("AppendZerios: " + str(i))
 
-
-            
-
-
+        plt.figure()
+        plt.imshow(newImage)
 
 
-    
 
-generate(test_dataset)
+generate(test_dataset[1:3])
 
