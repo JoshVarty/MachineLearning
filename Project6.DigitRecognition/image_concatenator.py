@@ -1,10 +1,8 @@
 #This portion of the code simply 
 
-
 from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf
 from six.moves import cPickle as pickle
 import os
 import random
@@ -65,11 +63,18 @@ def generate(dataset, labels):
             #plt.imshow(newImage)
             #print(newLabel)
 
-    return newDataSet, newLabels
+    return np.array(newDataSet), np.array(newLabels)
 
 newTrainData, newTrainLabels = generate(train_dataset, train_labels)
-newValidData, newValidLabels = generate(valid_dataset, valid_dataset)
+newValidData, newValidLabels = generate(valid_dataset, valid_labels)
 newTestData, newTestLabels = generate(test_dataset, test_labels)
+
+del train_dataset
+del train_labels
+del valid_dataset
+del valid_labels
+del test_dataset
+del test_labels
 
 #Finally, let's save the data for later reuse:
 pickle_file = os.path.join(data_root, 'five_digit_notMNIST.pickle')
