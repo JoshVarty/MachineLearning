@@ -6,7 +6,15 @@ import tensorflow as tf
 from six.moves import cPickle as pickle
 from six.moves import range
 
-pickle_file = 'C:\\data\\notMNIST.pickle'
+if sys.platform == 'win32': 
+    data_root = 'C:\\data\\' # Change me to store data elsewhere
+elif sys.platform == 'linux':
+    data_root = '/home/jovarty/data'
+else:
+    raise Exception("Unknown OS")
+
+pickle_file = 'notMNIST.pickle'
+dest_file_path = os.path.join(data_root, pickle_file)
 
 with open(pickle_file, 'rb') as f:
   save = pickle.load(f)
