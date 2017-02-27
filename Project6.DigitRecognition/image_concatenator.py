@@ -10,6 +10,7 @@ import random
 if sys.platform == 'win32': 
     data_root = 'C:\\data\\' # Change me to store data elsewhere
 elif sys.platform == 'linux':
+    data_root = '/home/jovarty/data'
 else:
     raise Exception("Unknown OS")
 

@@ -24,7 +24,13 @@ from six.moves import cPickle as pickle
 
 url = 'http://commondatastorage.googleapis.com/books1000/'
 last_percent_reported = None
-data_root = 'C:\\data\\' # Change me to store data elsewhere
+
+if sys.platform == 'win32': 
+    data_root = 'C:\\data2\\' # Change me to store data elsewhere
+elif sys.platform == 'linux':
+    data_root = '/home/jovarty/data'
+else:
+    raise Exception("Unknown OS")
 
 def download_progress_hook(count, blockSize, totalSize):
   """A hook to report the progress of a download. This is mostly intended for users with
@@ -32,7 +38,6 @@ def download_progress_hook(count, blockSize, totalSize):
   """
   global last_percent_reported
   percent = int(count * blockSize * 100 / totalSize)
-
   if last_percent_reported != percent:
     if percent % 5 == 0:
       sys.stdout.write("%s%%" % percent)
@@ -40,7 +45,6 @@ def download_progress_hook(count, blockSize, totalSize):
     else:
       sys.stdout.write(".")
       sys.stdout.flush()
-      
     last_percent_reported = percent
         
 def maybe_download(filename, expected_bytes, force=False):
@@ -54,8 +58,7 @@ def maybe_download(filename, expected_bytes, force=False):
   if statinfo.st_size == expected_bytes:
     print('Found and verified', dest_filename)
   else:
-    raise Exception(
-      'Failed to verify ' + dest_filename + '. Can you get to it with a browser?')
+    raise Exception('Failed to verify ' + dest_filename + '. Can you get to it with a browser?')
   return dest_filename
 
 train_filename = maybe_download('notMNIST_large.tar.gz', 247336696)
@@ -68,6 +71,7 @@ np.random.seed(133)
 
 def maybe_extract(filename, force=False):
   root = os.path.splitext(os.path.splitext(filename)[0])[0]  # remove .tar.gz
+  print("Root:" + root)
   if os.path.isdir(root) and not force:
     # You may override by setting force=True.
     print('%s already present - Skipping extraction of %s.' % (root, filename))
@@ -80,15 +84,24 @@ def maybe_extract(filename, force=False):
   data_folders = [
     os.path.join(root, d) for d in sorted(os.listdir(root))
     if os.path.isdir(os.path.join(root, d))]
+  print("data_folders: " + str(data_folders))
   if len(data_folders) != num_classes:
-    raise Exception(
-      'Expected %d folders, one per class. Found %d instead.' % (
-        num_classes, len(data_folders)))
+    raise Exception('Expected %d folders, one per class. Found %d instead.' % (num_classes, len(data_folders)))
   print(data_folders)
   return data_folders
   
-train_folders = maybe_extract(train_filename)
-test_folders = maybe_extract(test_filename)
+#train_folders = maybe_extract(train_filename)
+#test_folders = maybe_extract(test_filename)
+
+def load_folder(filename):
+  root = os.path.splitext(os.path.splitext(filename)[0])[0]  # remove .tar.gz
+  data_folders = [
+    os.path.join(root, d) for d in sorted(os.listdir(root))
+    if os.path.isdir(os.path.join(root, d))]
+  return data_folders
+
+train_folders = load_folder(train_filename)
+test_folders = load_folder(train_filename)
 
 #Problem 1
 #Let's take a peek at some of the data to make sure it looks sensible. 
@@ -101,12 +114,12 @@ import random
 folder = random.choice(test_folders)
 files = os.listdir(folder)
 
-for i in range(0,3):
-    image_name = random.choice(files)
-    image_path = os.path.join(folder, image_name)
-    image = Image(filename=image_path)
-    print(image_path)
-    display(image)
+#for i in range(0,3):
+#    image_name = random.choice(files)
+#    image_path = os.path.join(folder, image_name)
+#    image = Image(filename=image_path)
+#    print(image_path)
+#    display(image)
 
 
 
@@ -179,37 +192,35 @@ test_datasets = maybe_pickle(test_folders, 1800)
 #Let's verify that the data still looks good. Displaying a sample of the labels and images from the ndarray. 
 #Hint: you can use matplotlib.pyplot.
 
-pickle_file = train_datasets[0]  # index 0 should be all As, 1 = all Bs, etc.
-with open(pickle_file, 'rb') as f:
-    letter_set = pickle.load(f)  # unpickle
-    sample_idx = np.random.randint(len(letter_set))  # pick a random image index
-    sample_image = letter_set[sample_idx, :, :]  # extract a 2D slice
-    plt.figure()
-    plt.imshow(sample_image)  # display it
+#pickle_file = train_datasets[0]  # index 0 should be all As, 1 = all Bs, etc.
+#with open(pickle_file, 'rb') as f:
+#    letter_set = pickle.load(f)  # unpickle
+#    sample_idx = np.random.randint(len(letter_set))  # pick a random image index
+#    sample_image = letter_set[sample_idx, :, :]  # extract a 2D slice
+#    plt.figure()
+#    plt.imshow(sample_image)  # display it
 
 
 
 #Problem 3
 #Another check: we expect the data to be balanced across classes. Verify that.
-maxsize = -sys.maxsize - 1
-minsize = sys.maxsize;
-for i in range(0, len(train_datasets)):
-    pickle_file = train_datasets[i]
-    with open(pickle_file, 'rb') as f:
-        letter_set = pickle.load(f)
-        length = len(letter_set)
-        if length > maxsize:
-            maxsize = length
-        if length < minsize:
-            minsize = length
-        print(pickle_file)
-        print("Length " + str(length))
+#maxsize = -sys.maxsize - 1
+#minsize = sys.maxsize;
+#for i in range(0, len(train_datasets)):
+#    pickle_file = train_datasets[i]
+#    with open(pickle_file, 'rb') as f:
+#        letter_set = pickle.load(f)
+#        length = len(letter_set)
+#        if length > maxsize:
+#            maxsize = length
+#        if length < minsize:
+#            minsize = length
+#        print(pickle_file)
+#        print("Length " + str(length))
 
-print("Min: " + str(minsize))
-print("Max: " + str(maxsize))
-print("Maximum difference in class size: " + str(maxsize - minsize))
-
-
+#print("Min: " + str(minsize))
+#print("Max: " + str(maxsize))
+#print("Maximum difference in class size: " + str(maxsize - minsize))
 
 
 # Merge and prune the training data as needed. You might not be able to fit it all in memory, 

@@ -4,8 +4,15 @@ import tensorflow as tf
 from six.moves import cPickle as pickle
 from six.moves import range
 import os
+import sys
 
-data_root = 'C:\\data\\' # Change me to store data elsewhere
+if sys.platform == 'win32': 
+    data_root = 'C:\\data\\' # Change me to store data elsewhere
+elif sys.platform == 'linux':
+    data_root = '/home/jovarty/data'
+else:
+    raise Exception("Unknown OS")
+
 pickle_file = 'five_digit_notMNIST.pickle'
 dest_file_path = os.path.join(data_root, pickle_file)
 
@@ -33,12 +40,12 @@ def reformat(dataset, labels):
   # Map 1 to [0.0, 1.0, 0.0 ...], 2 to [0.0, 0.0, 1.0 ...]
   newLabels = []
   for label in labels:
-      test = (np.arange(num_labels) == label[:,None]).astype(np.float32)
-      newLabels.append(test)
-  labels = (np.arange(num_labels) == labels[:,None]).astype(np.float32)
+      newLabel = (np.arange(num_labels) == label[:,None]).astype(np.float32)
+      newLabels.append(newLabel)
   return dataset, newLabels
 
 
 #train_dataset, train_labels = reformat(train_dataset, train_labels)
 valid_dataset, valid_labels = reformat(valid_dataset, valid_labels)
 test_dataset, test_labels = reformat(test_dataset, test_labels)
+
