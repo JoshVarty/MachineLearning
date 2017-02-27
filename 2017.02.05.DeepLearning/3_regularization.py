@@ -6,7 +6,12 @@ import tensorflow as tf
 from six.moves import cPickle as pickle
 import os
 
-data_root = 'C:\\data\\' # Change me to store data elsewhere
+if sys.platform == 'win32': 
+    data_root = 'C:\\data\\' # Change me to store data elsewhere
+elif sys.platform == 'linux':
+else:
+    raise Exception("Unknown OS")
+
 pickle_file = 'notMNIST.pickle'
 dest_file_path = os.path.join(data_root, pickle_file)
 
