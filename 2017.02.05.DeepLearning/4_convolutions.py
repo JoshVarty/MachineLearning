@@ -5,6 +5,8 @@ import numpy as np
 import tensorflow as tf
 from six.moves import cPickle as pickle
 from six.moves import range
+import os
+import sys
 
 if sys.platform == 'win32': 
     data_root = 'C:\\data\\' # Change me to store data elsewhere
@@ -16,7 +18,7 @@ else:
 pickle_file = 'notMNIST.pickle'
 dest_file_path = os.path.join(data_root, pickle_file)
 
-with open(pickle_file, 'rb') as f:
+with open(dest_file_path, 'rb') as f:
   save = pickle.load(f)
   train_dataset = save['train_dataset']
   train_labels = save['train_labels']
