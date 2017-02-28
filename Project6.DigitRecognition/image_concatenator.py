@@ -91,6 +91,8 @@ del test_labels
 #Finally, let's save the data for later reuse:
 pickle_file = os.path.join(data_root, 'five_digit_notMNIST.pickle')
 
+print("Pickle_file: " + str(pickle_file);
+
 try:
   f = open(pickle_file, 'wb')
   save = {
@@ -101,7 +103,9 @@ try:
     'test_dataset': newTestData,
     'test_labels': newTestLabels,
     }
+  print("dumping");
   pickle.dump(save, f, pickle.HIGHEST_PROTOCOL)
+  print("dumped");
   f.close()
 except Exception as e:
   print('Unable to save data to', pickle_file, ':', e)
