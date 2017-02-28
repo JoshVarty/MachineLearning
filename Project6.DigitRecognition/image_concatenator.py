@@ -91,7 +91,7 @@ del test_labels
 #Finally, let's save the data for later reuse:
 pickle_file = os.path.join(data_root, 'five_digit_notMNIST.pickle')
 
-print("Pickle_file: " + str(pickle_file);
+print("Pickle_file: " + str(pickle_file));
 
 try:
   f = open(pickle_file, 'wb')
