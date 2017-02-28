@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from six.moves import cPickle as pickle
 import os
+import sys
 import random
 
 if sys.platform == 'win32': 
@@ -72,8 +73,13 @@ def generate(dataset, labels):
     return np.array(newDataSet), np.array(newLabels)
 
 newTrainData, newTrainLabels = generate(train_dataset, train_labels)
+print("Loaded training data")
 newValidData, newValidLabels = generate(valid_dataset, valid_labels)
+print("Loaded validation data")
 newTestData, newTestLabels = generate(test_dataset, test_labels)
+print("Loaded testing data")
+
+print("loaded all");
 
 del train_dataset
 del train_labels
@@ -100,6 +106,8 @@ try:
 except Exception as e:
   print('Unable to save data to', pickle_file, ':', e)
   raise
+
+print("Finished writing to disk")
 
 statinfo = os.stat(pickle_file)
 print('Compressed pickle size:', statinfo.st_size)

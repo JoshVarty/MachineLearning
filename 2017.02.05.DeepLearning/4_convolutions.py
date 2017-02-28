@@ -30,7 +30,6 @@ with open(dest_file_path, 'rb') as f:
   print('Training set', train_dataset.shape, train_labels.shape)
   print('Validation set', valid_dataset.shape, valid_labels.shape)
   print('Test set', test_dataset.shape, test_labels.shape)
-
   
 image_size = 28
 num_labels = 10
@@ -129,7 +128,6 @@ def ConvNet_Basic():
 
 
 
-
 #Problem 1
 #The convolutional model above uses convolutions with stride 2 to reduce the dimensionality. 
 #Replace the strides by a max pooling operation (nn.max_pool()) of stride 2 and patch/kernel size 2.
@@ -158,6 +156,8 @@ def ConvNet_Pool():
       layer3_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden]))
       layer4_weights = tf.Variable(tf.truncated_normal([num_hidden, num_labels], stddev=0.1))
       layer4_biases = tf.Variable(tf.constant(1.0, shape=[num_labels]))
+
+      #
       
       # Model.
       def model(data):
