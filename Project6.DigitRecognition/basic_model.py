@@ -25,7 +25,8 @@ with open(dest_file_path, 'rb') as f:
   test_dataset = save['test_dataset']
   test_labels = save['test_labels']
   del save  # hint to help gc free up memory
-  #print('Training set', train_dataset.shape, train_labels.shape)
+  
+  print('Training set', train_dataset.shape, train_labels.shape)
   print('Validation set', valid_dataset.shape, valid_labels.shape)
   print('Test set', test_dataset.shape, test_labels.shape)
 
@@ -39,17 +40,28 @@ num_channels = 1; #grayscale
 
 def reformat(dataset, labels):
   dataset = dataset.reshape((-1, image_height * image_width)).astype(np.float32)
+  test = dataset.shape;
   # Map 1 to [0.0, 1.0, 0.0 ...], 2 to [0.0, 0.0, 1.0 ...]
   # Note that -1 is mapped to an all-zero vector
   newLabels = []
   for label in labels:
       newLabel = (np.arange(num_labels) == label[:,None]).astype(np.float32)
+      #Flatten 5 vectors into one 
+      newLabel = np.concatenate(newLabel).ravel()
       newLabels.append(newLabel)
-  return dataset, newLabels
+      
+  return dataset, np.array(newLabels)
 
 train_dataset, train_labels = reformat(train_dataset, train_labels)
 valid_dataset, valid_labels = reformat(valid_dataset, valid_labels)
 test_dataset, test_labels = reformat(test_dataset, test_labels)
+
+print("")
+print("SHAPE AFTER REFORMAT")
+print("")
+print('Training set', train_dataset.shape, train_labels.shape)
+print('Validation set', valid_dataset.shape, valid_labels.shape)
+print('Test set', test_dataset.shape, test_labels.shape)
 
 def accuracy(predictions, labels):
   return 100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1)) / predictions.shape[0]
