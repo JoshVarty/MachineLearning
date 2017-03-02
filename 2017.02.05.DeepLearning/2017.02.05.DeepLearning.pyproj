@@ -5,7 +5,6 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7648a539-94a2-4de5-81e9-086e58de5071</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>5_word2vec.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

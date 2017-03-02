@@ -6,6 +6,7 @@ import tensorflow as tf
 from six.moves import cPickle as pickle
 from six.moves import range
 import os
+import sys
 
 if sys.platform == 'win32': 
     data_root = 'C:\\data\\' # Change me to store data elsewhere
@@ -193,5 +194,5 @@ def OneHiddenLayer():
             valid_prediction.eval(), valid_labels))
       print("Test accuracy: %.1f%%" % accuracy(test_prediction.eval(), test_labels))
 
-LogisticRegression();
+#LogisticRegression();
 OneHiddenLayer();
