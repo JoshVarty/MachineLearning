@@ -39,7 +39,7 @@ lengthOfLabels = 5;
 num_channels = 1; #grayscale
 
 def reformat(dataset, labels):
-  dataset = dataset.reshape((-1, image_height * image_width)).astype(np.float32)
+  dataset = dataset.reshape((-1, image_height, image_width, num_channels)).astype(np.float32)
   test = dataset.shape;
   # Map 1 to [0.0, 1.0, 0.0 ...], 2 to [0.0, 0.0, 1.0 ...]
   # Note that -1 is mapped to an all-zero vector
