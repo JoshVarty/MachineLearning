@@ -34,7 +34,7 @@ with open(dest_file_path, 'rb') as f:
 image_height = 28
 image_width = 28 * 5
 num_labels = 10
-output_size = num_labels * 5 #We have 5 sets of labels. One for each number we're predicting
+output_size = 11;   #10 digits and one blank
 lengthOfLabels = 5;
 num_channels = 1; #grayscale
 
@@ -68,10 +68,13 @@ def accuracy(predictions, labels):
 
 
 def ConvNet():
-    batch_size = 16
-    patch_size = 5
-    depth = 16
-    num_hidden = 64
+    batch_size = 32;
+    patch_size = 4;
+    depth_of_sixteen = 16;
+    depth_of_sixty_four = 64;
+    num_hidden = 64;
+
+    fc_weight_size = 15680;
 
     graph = tf.Graph()
     with graph.as_default():
@@ -82,31 +85,70 @@ def ConvNet():
       tf_test_dataset = tf.constant(test_dataset)
 
       # Variables.
-      layer1_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, num_channels, depth], stddev=0.1))
-      layer1_biases = tf.Variable(tf.zeros([depth]))
-      layer2_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth, depth], stddev=0.1))
-      layer2_biases = tf.Variable(tf.constant(1.0, shape=[depth]))
-      layer3_weights = tf.Variable(tf.truncated_normal([image_height // 4 * image_width // 4 * depth, num_hidden], stddev=0.1))
-      layer3_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden]))
-      layer4_weights = tf.Variable(tf.truncated_normal([num_hidden, output_size], stddev=0.1))
-      layer4_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
+      #Conv of 4x4x1x16
+      layer1_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, num_channels, depth_of_sixteen], stddev=0.1))
+      layer1_biases = tf.Variable(tf.zeros([depth_of_sixteen]))
+      #Conv of 4x4x16x16
+      layer2_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth_of_sixteen, depth_of_sixteen], stddev=0.1))
+      layer2_biases = tf.Variable(tf.constant(1.0, shape=[depth_of_sixteen]))
+      #Conv of 4x4x16x64
+      layer3_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth_of_sixteen, depth_of_sixty_four], stddev=0.1))
+      layer3_biases = tf.Variable(tf.constant(1.0, shape=[depth_of_sixty_four]))
+      #Conv of 4x4x64x64
+      layer4_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth_of_sixty_four, depth_of_sixty_four], stddev=0.1))
+      layer4_biases = tf.Variable(tf.constant(1.0, shape=[depth_of_sixty_four]))
+
+      #Output FC layers
+      fc_1_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_1_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
+      fc_2_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_2_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
+      fc_3_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_3_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
+      fc_4_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_4_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
+      fc_5_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_5_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
       
       # Model
-      def model(data):
-        conv = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
-        hidden = tf.nn.relu(conv + layer1_biases)
-        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-        conv = tf.nn.conv2d(pool_1, layer2_weights, [1, 1, 1, 1], padding='SAME')
-        hidden = tf.nn.relu(conv + layer2_biases)
-        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-        shape = pool_1.get_shape().as_list()
-        reshape = tf.reshape(pool_1, [shape[0], shape[1] * shape[2] * shape[3]])
-        hidden = tf.nn.relu(tf.matmul(reshape, layer3_weights) + layer3_biases)
-        return tf.matmul(hidden, layer4_weights) + layer4_biases
+      def model(data, labels):
+        conv_1 = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
+        hidden_1 = tf.nn.relu(conv_1 + layer1_biases)
+
+        conv_2 = tf.nn.conv2d(hidden_1, layer2_weights, [1, 1, 1, 1], padding='SAME')
+        hidden_2 = tf.nn.relu(conv_2 + layer2_biases)
+ 
+        #TODO: Is this right?       
+        pool_1 = tf.nn.max_pool(hidden_2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+
+        conv_3 = tf.nn.conv2d(pool_1, layer3_weights, [1, 1, 1, 1], padding='SAME')
+        hidden_3 = tf.nn.relu(conv_3 + layer3_biases)
+
+        conv_4 = tf.nn.conv2d(hidden_3, layer4_weights, [1, 1, 1, 1], padding='SAME')
+        hidden_4 = tf.nn.relu(conv_4 + layer4_biases)
+
+        pool_2 = tf.nn.max_pool(hidden_4, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+
+        shape = pool_2.get_shape().as_list()
+        reshape = tf.reshape(pool_2, [shape[0], shape[1] * shape[2] * shape[3]])
+
+        output_1 = tf.matmul(reshape, fc_1_weights) + fc_1_biases
+        output_2 = tf.matmul(reshape, fc_2_weights) + fc_2_biases
+        output_3 = tf.matmul(reshape, fc_3_weights) + fc_3_biases
+        output_4 = tf.matmul(reshape, fc_4_weights) + fc_4_biases
+        output_5 = tf.matmul(reshape, fc_5_weights) + fc_5_biases
+
+        loss_1 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_1)
+        loss_2 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_2)
+        loss_3 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_3)
+        loss_4 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_4)
+        loss_5 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_5)
+
+        return loss_1 + loss_2 + loss_3 + loss_4 + loss_5
       
       # Training computation.
-      logits = model(tf_train_dataset)
-      loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
+      #logits = model(tf_train_dataset)
+      loss = model(tf_train_dataset, tf_train_labels)
         
       # Optimizer.
       optimizer = tf.train.GradientDescentOptimizer(0.05).minimize(loss)
