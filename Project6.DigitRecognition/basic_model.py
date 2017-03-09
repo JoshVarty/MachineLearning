@@ -34,7 +34,7 @@ with open(dest_file_path, 'rb') as f:
 image_height = 28
 image_width = 28 * 5
 num_labels = 10
-output_size = 11;   #10 digits and one blank
+output_size = 10;   #10 digits and one blank
 lengthOfLabels = 5;
 num_channels = 1; #grayscale
 
@@ -80,7 +80,8 @@ def ConvNet():
     with graph.as_default():
       # Input data.
       tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_height, image_width, num_channels))
-      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, output_size))
+      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, 50))
+
       tf_valid_dataset = tf.constant(valid_dataset)
       tf_test_dataset = tf.constant(test_dataset)
 
@@ -111,7 +112,7 @@ def ConvNet():
       fc_5_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
       
       # Model
-      def model(data, labels):
+      def model(data):
         conv_1 = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
         hidden_1 = tf.nn.relu(conv_1 + layer1_biases)
 
@@ -138,17 +139,13 @@ def ConvNet():
         output_4 = tf.matmul(reshape, fc_4_weights) + fc_4_biases
         output_5 = tf.matmul(reshape, fc_5_weights) + fc_5_biases
 
-        loss_1 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_1)
-        loss_2 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_2)
-        loss_3 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_3)
-        loss_4 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_4)
-        loss_5 = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=output_5)
+        logits = tf.concat(1, [output_1, output_2, output_3, output_4, output_5])  
 
-        return loss_1 + loss_2 + loss_3 + loss_4 + loss_5
+        return logits
       
       # Training computation.
-      #logits = model(tf_train_dataset)
-      loss = model(tf_train_dataset, tf_train_labels)
+      logits = model(tf_train_dataset)
+      loss = tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits)
         
       # Optimizer.
       optimizer = tf.train.GradientDescentOptimizer(0.05).minimize(loss)
