@@ -87,28 +87,28 @@ def ConvNet():
 
       # Variables.
       #Conv of 4x4x1x16
-      layer1_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, num_channels, depth_of_sixteen], stddev=0.1))
+      layer1_weights = tf.get_variable("layer1_weights", [patch_size, patch_size, num_channels, depth_of_sixteen], initializer=tf.contrib.layers.xavier_initializer())
       layer1_biases = tf.Variable(tf.zeros([depth_of_sixteen]))
       #Conv of 4x4x16x16
-      layer2_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth_of_sixteen, depth_of_sixteen], stddev=0.1))
+      layer2_weights = tf.get_variable("layer2_weights", [patch_size, patch_size, depth_of_sixteen, depth_of_sixteen], initializer=tf.contrib.layers.xavier_initializer())
       layer2_biases = tf.Variable(tf.constant(1.0, shape=[depth_of_sixteen]))
       #Conv of 4x4x16x64
-      layer3_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth_of_sixteen, depth_of_sixty_four], stddev=0.1))
+      layer3_weights = tf.get_variable("layer3_weights", [patch_size, patch_size, depth_of_sixteen, depth_of_sixty_four], initializer=tf.contrib.layers.xavier_initializer())
       layer3_biases = tf.Variable(tf.constant(1.0, shape=[depth_of_sixty_four]))
       #Conv of 4x4x64x64
-      layer4_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth_of_sixty_four, depth_of_sixty_four], stddev=0.1))
+      layer4_weights = tf.get_variable("layer4_weights", [patch_size, patch_size, depth_of_sixty_four, depth_of_sixty_four], initializer=tf.contrib.layers.xavier_initializer())
       layer4_biases = tf.Variable(tf.constant(1.0, shape=[depth_of_sixty_four]))
 
       #Output FC layers
-      fc_1_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_1_weights = tf.get_variable("fc_1_weights", [fc_weight_size, output_size], initializer=tf.contrib.layers.xavier_initializer())
       fc_1_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
-      fc_2_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_2_weights = tf.get_variable("fc_2_weights", [fc_weight_size, output_size], initializer=tf.contrib.layers.xavier_initializer())
       fc_2_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
-      fc_3_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_3_weights = tf.get_variable("fc_3_weights", [fc_weight_size, output_size], initializer=tf.contrib.layers.xavier_initializer())
       fc_3_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
-      fc_4_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_4_weights = tf.get_variable("fc_4_weights", [fc_weight_size, output_size], initializer=tf.contrib.layers.xavier_initializer())
       fc_4_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
-      fc_5_weights = tf.Variable(tf.truncated_normal([fc_weight_size, output_size], stddev=0.1))
+      fc_5_weights = tf.get_variable("fc_5_weights", [fc_weight_size, output_size], initializer=tf.contrib.layers.xavier_initializer())
       fc_5_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
       
       # Model
@@ -166,6 +166,7 @@ def ConvNet():
         batch_labels = train_labels[offset:(offset + batch_size), :]
         feed_dict = {tf_train_dataset : batch_data, tf_train_labels : batch_labels}
         _, l, predictions = session.run([optimizer, loss, train_prediction], feed_dict=feed_dict)
+        l = sum(l)
         if (step % 50 == 0):
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
