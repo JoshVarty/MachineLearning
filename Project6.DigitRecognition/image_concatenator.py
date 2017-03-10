@@ -7,6 +7,7 @@ from six.moves import cPickle as pickle
 import os
 import sys
 import random
+from PIL import Image
 
 if sys.platform == 'win32': 
     data_root = 'C:\\data\\' # Change me to store data elsewhere
@@ -32,7 +33,6 @@ with open(dest_file_path, 'rb') as f:
   print('Test set', test_dataset.shape, test_labels.shape)
 
 
-from IPython.display import Image
 def generate(dataset, labels):
     newDataSet = []
     newLabels = []
@@ -40,7 +40,7 @@ def generate(dataset, labels):
     minImageLength = 1
     maxImageLength = 5
     for index, image in enumerate(dataset):
-        newImage = np.zeros((28, 28 * 5))
+        imageArray = np.zeros((28, 28 * 5))
         newLabel = []
         #How long will the new image be?
         imageLength = random.randint(minImageLength, maxImageLength)
@@ -51,22 +51,28 @@ def generate(dataset, labels):
             randomImage = dataset[randomInt]
             newLabel.append(labels[randomInt])
             #Splice randomeImage into new image
-            newImage[:, (i) * 28 : (i+1) * 28] = randomImage[:,:]
+            imageArray[:, (i) * 28 : (i+1) * 28] = randomImage[:,:]
             #print("From Image: " + str(i))
 
         for i in range(imageLength, 5):
             blankImage = np.zeros((28,28))
             blankImage.fill(0)
             newLabel.append(-1)
-            newImage[:, (i) * 28 : (i+1) * 28] = blankImage
+            imageArray[:, (i) * 28 : (i+1) * 28] = blankImage
             #print("AppendZerios: " + str(i))
 
-        newDataSet.append(newImage)
+        image = Image.fromarray(imageArray)
+        squareImage = image.resize([140, 140])
+        data = np.array(squareImage.getdata())
+        data.resize((140,140))
+        
         newLabels.append(newLabel)
+        newDataSet.append(data)
 
         if index % 1000 == 0:
             print("Index: " + str(index));
             #plt.figure()
+            #plt.imshow(data)
             #plt.imshow(newImage)
             #print(newLabel)
 
