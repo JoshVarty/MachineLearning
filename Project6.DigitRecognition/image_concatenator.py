@@ -21,8 +21,8 @@ dest_file_path = os.path.join(data_root, pickle_file)
 
 with open(dest_file_path, 'rb') as f:
   save = pickle.load(f)
-  train_dataset = save['train_dataset']
-  train_labels = save['train_labels']
+  train_dataset = save['train_dataset'][:100000]
+  train_labels = save['train_labels'][:100000]
   valid_dataset = save['valid_dataset']
   valid_labels = save['valid_labels']
   test_dataset = save['test_dataset']
@@ -62,9 +62,9 @@ def generate(dataset, labels):
             #print("AppendZerios: " + str(i))
 
         image = Image.fromarray(imageArray)
-        squareImage = image.resize([128, 128])
+        squareImage = image.resize([100, 100])
         data = np.array(squareImage.getdata())
-        data.resize((140,140))
+        data.resize((100,100))
         
         newLabels.append(newLabel)
         newDataSet.append(data)
@@ -78,7 +78,7 @@ def generate(dataset, labels):
 
     return np.array(newDataSet), np.array(newLabels)
 
-newTrainData, newTrainLabels = generate(train_dataset[:100000], train_labels[:100000])
+newTrainData, newTrainLabels = generate(train_dataset, train_labels)
 print("Loaded training data")
 newValidData, newValidLabels = generate(valid_dataset, valid_labels)
 print("Loaded validation data")
