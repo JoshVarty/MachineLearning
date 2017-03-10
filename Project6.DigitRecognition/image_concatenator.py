@@ -62,7 +62,7 @@ def generate(dataset, labels):
             #print("AppendZerios: " + str(i))
 
         image = Image.fromarray(imageArray)
-        squareImage = image.resize([140, 140])
+        squareImage = image.resize([128, 128])
         data = np.array(squareImage.getdata())
         data.resize((140,140))
         
