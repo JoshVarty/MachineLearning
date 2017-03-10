@@ -78,7 +78,7 @@ def generate(dataset, labels):
 
     return np.array(newDataSet), np.array(newLabels)
 
-newTrainData, newTrainLabels = generate(train_dataset, train_labels)
+newTrainData, newTrainLabels = generate(train_dataset[:100000], train_labels[:100000])
 print("Loaded training data")
 newValidData, newValidLabels = generate(valid_dataset, valid_labels)
 print("Loaded validation data")
