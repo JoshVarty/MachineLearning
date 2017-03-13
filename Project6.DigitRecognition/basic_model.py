@@ -74,7 +74,7 @@ def ConvNet():
     depth_of_sixty_four = 64;
     num_hidden = 64;
 
-    fc_weight_size = 15680;
+    fc_weight_size = 25600;
 
     graph = tf.Graph()
     with graph.as_default():
