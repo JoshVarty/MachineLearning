@@ -64,7 +64,7 @@ def generate(dataset, labels):
         image = Image.fromarray(imageArray)
         squareImage = image.resize([100, 100])
         data = np.array(squareImage.getdata())
-        data.resize((100,100))
+        data.resize((80,80))
         
         newLabels.append(newLabel)
         newDataSet.append(data)

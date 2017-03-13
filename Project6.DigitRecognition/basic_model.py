@@ -31,8 +31,8 @@ with open(dest_file_path, 'rb') as f:
   print('Test set', test_dataset.shape, test_labels.shape)
 
 
-image_height = 100
-image_width = 100
+image_height = 80
+image_width = 80
 num_labels = 10
 output_size = 10;   #10 digits and one blank
 lengthOfLabels = 5;
