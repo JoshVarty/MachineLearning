@@ -49,7 +49,8 @@ def generate(dataset, labels):
         for i in range(0, imageLength):
             randomInt = random.randint(0, len(dataset) - 1)
             randomImage = dataset[randomInt]
-            newLabel.append(labels[randomInt])
+            #NOTE: We're adding one for all labels to account for blank images which we'll classify as 0
+            newLabel.append(labels[randomInt] + 1)
             #Splice randomeImage into new image
             imageArray[:, (i) * 28 : (i+1) * 28] = randomImage[:,:]
             #print("From Image: " + str(i))
@@ -57,14 +58,17 @@ def generate(dataset, labels):
         for i in range(imageLength, 5):
             blankImage = np.zeros((28,28))
             blankImage.fill(0)
-            newLabel.append(-1)
+            #NOTE: We're representing blanks as 0 
+            newLabel.append(0)
             imageArray[:, (i) * 28 : (i+1) * 28] = blankImage
             #print("AppendZerios: " + str(i))
 
+        imageHeight = 80
+        imageWidth = 80
         image = Image.fromarray(imageArray)
-        squareImage = image.resize([100, 100])
+        squareImage = image.resize([imageHeight, imageWidth])
         data = np.array(squareImage.getdata())
-        data.resize((80,80))
+        data.resize((imageHeight, imageWidth))
         
         newLabels.append(newLabel)
         newDataSet.append(data)
@@ -73,7 +77,7 @@ def generate(dataset, labels):
             print("Index: " + str(index));
             #plt.figure()
             #plt.imshow(data)
-            #plt.imshow(newImage)
+            #plt.imshow(data)
             #print(newLabel)
 
     return np.array(newDataSet), np.array(newLabels)
