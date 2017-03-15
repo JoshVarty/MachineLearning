@@ -85,7 +85,7 @@ def ConvNet():
     with graph.as_default():
       # Input data.
       tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_height, image_width, num_channels))
-      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, 50))
+      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, output_size * 5))
 
       tf_valid_dataset = tf.constant(valid_dataset)
       tf_test_dataset = tf.constant(test_dataset)
