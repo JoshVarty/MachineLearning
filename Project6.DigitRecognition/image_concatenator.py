@@ -45,7 +45,6 @@ def generate(dataset, labels):
         #How long will the new image be?
         imageLength = random.randint(minImageLength, maxImageLength)
 
-        #print(imageLength)
         for i in range(0, imageLength):
             randomInt = random.randint(0, len(dataset) - 1)
             randomImage = dataset[randomInt]
