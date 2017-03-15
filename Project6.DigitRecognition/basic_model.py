@@ -18,12 +18,12 @@ dest_file_path = os.path.join(data_root, pickle_file)
 
 with open(dest_file_path, 'rb') as f:
   save = pickle.load(f)
-  train_dataset = save['train_dataset']
-  train_labels = save['train_labels']
-  valid_dataset = save['valid_dataset']
-  valid_labels = save['valid_labels']
-  test_dataset = save['test_dataset']
-  test_labels = save['test_labels']
+  train_dataset = save['train_dataset'][:128]
+  train_labels = save['train_labels'][:128]
+  valid_dataset = save['valid_dataset'][:128]
+  valid_labels = save['valid_labels'][:128]
+  test_dataset = save['test_dataset'][:128]
+  test_labels = save['test_labels'][:128]
   del save  # hint to help gc free up memory
   
   print('Training set', train_dataset.shape, train_labels.shape)
@@ -33,8 +33,8 @@ with open(dest_file_path, 'rb') as f:
 
 image_height = 80
 image_width = 80
-num_labels = 10
-output_size = 10;   #10 digits and one blank
+num_labels = 11
+output_size = 11;   #0 for blank and 1-10 for the actual letters
 lengthOfLabels = 5;
 num_channels = 1; #grayscale
 
@@ -64,7 +64,12 @@ print('Validation set', valid_dataset.shape, valid_labels.shape)
 print('Test set', test_dataset.shape, test_labels.shape)
 
 def accuracy(predictions, labels):
-  return 100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1)) / predictions.shape[0]
+  x1 = sum(np.argmax(predictions[:11], 1) == np.argmax(labels[:11], 1))
+  x2 = sum(np.argmax(predictions[11:22], 1) == np.argmax(labels[11:22], 1))
+  x3 = sum(np.argmax(predictions[22:33], 1) == np.argmax(labels[22:33], 1))
+  x4 = sum(np.argmax(predictions[33:44], 1) == np.argmax(labels[33:44], 1))
+  x5 = sum(np.argmax(predictions[44:55], 1) == np.argmax(labels[44:55], 1))
+  return 100.0 * (x1+x2+x3+x4+x5) / predictions.shape[0]
 
 
 def ConvNet():
@@ -148,7 +153,7 @@ def ConvNet():
       loss = tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits)
         
       # Optimizer.
-      optimizer = tf.train.GradientDescentOptimizer(0.05).minimize(loss)
+      optimizer = tf.train.AdamOptimizer(0.001).minimize(loss)
       
       # Predictions for the training, validation, and test data.
       train_prediction = tf.nn.softmax(logits)
@@ -170,9 +175,10 @@ def ConvNet():
         if (step % 50 == 0):
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
-          print('Validation accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
+          #print('Validation accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
 
-      print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
+      #print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
+      print('Done')
 
 
 
