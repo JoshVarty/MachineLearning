@@ -18,12 +18,12 @@ dest_file_path = os.path.join(data_root, pickle_file)
 
 with open(dest_file_path, 'rb') as f:
   save = pickle.load(f)
-  train_dataset = save['train_dataset'][:128]
-  train_labels = save['train_labels'][:128]
-  valid_dataset = save['valid_dataset'][:128]
-  valid_labels = save['valid_labels'][:128]
-  test_dataset = save['test_dataset'][:128]
-  test_labels = save['test_labels'][:128]
+  train_dataset = save['train_dataset']
+  train_labels = save['train_labels']
+  valid_dataset = save['valid_dataset']
+  valid_labels = save['valid_labels']
+  test_dataset = save['test_dataset']
+  test_labels = save['test_labels']
   del save  # hint to help gc free up memory
   
   print('Training set', train_dataset.shape, train_labels.shape)
@@ -201,9 +201,9 @@ def ConvNet():
         if (step % 50 == 0):
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
-          #print('Validation accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
+          print('Validation accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
 
-      #print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
+      print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
       print('Done')
 
 
