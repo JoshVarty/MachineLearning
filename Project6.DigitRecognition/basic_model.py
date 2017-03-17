@@ -114,7 +114,7 @@ def ConvNet():
       fc_5_biases = tf.Variable(tf.constant(1.0, shape=[output_size]))
       
       # Model
-      def model(data, keep_probability):
+      def model(data, keep_prob):
         conv_1 = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
         hidden_1 = tf.nn.relu(conv_1 + layer1_biases)
 
