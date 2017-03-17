@@ -150,12 +150,13 @@ def ConvNet():
       
 
       # Training computation.
+      [train_logits1, train_logits2, train_logits3, train_logits4, train_logits5] = model(tf_train_dataset, 0.75)
       
-      loss1 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits1, labels=tf_train_labels[:,0]))
-      loss2 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits2, labels=tf_train_labels[:,1]))
-      loss3 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits3, labels=tf_train_labels[:,2]))
-      loss4 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits4, labels=tf_train_labels[:,3]))
-      loss5 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits5, labels=tf_train_labels[:,4]))
+      loss1 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=train_logits1, labels=tf_train_labels[:,0]))
+      loss2 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=train_logits2, labels=tf_train_labels[:,1]))
+      loss3 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=train_logits3, labels=tf_train_labels[:,2]))
+      loss4 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=train_logits4, labels=tf_train_labels[:,3]))
+      loss5 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=train_logits5, labels=tf_train_labels[:,4]))
 
       loss = loss1 + loss2 + loss3 + loss4 + loss5
         
