@@ -70,7 +70,7 @@ def accuracy(predictions, labels):
   return result
 
 def ConvNet():
-    batch_size = 32;
+    batch_size = 64;
     patch_size = 4;
     depth_of_sixteen = 16;
     depth_of_sixty_four = 64;
