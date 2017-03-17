@@ -66,7 +66,7 @@ print('Test set', test_dataset.shape, test_labels.shape)
 def accuracy(predictions, labels):
   maxPredictions = np.argmax(predictions, 2)
   maxLabels = np.argmax(labels, 2)
-  result = 100.0 * sum(sum(maxPredictions == maxLabels)) / predictions.shape[1] / predictions.shape[2] 
+  result = 100.0 * sum(sum(maxPredictions == maxLabels)) / predictions.shape[0] / predictions.shape[1] 
   return result
 
 def ConvNet():
