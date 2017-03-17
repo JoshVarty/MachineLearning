@@ -47,7 +47,7 @@ def reformat(dataset, labels):
   for label in labels:
       newLabel = (np.arange(num_labels) == label[:,None]).astype(np.float32)
       #Flatten 5 vectors into one 
-      newLabel = np.concatenate(newLabel).ravel()
+      #newLabel = np.concatenate(newLabel).ravel()
       newLabels.append(newLabel)
       
   return dataset, np.array(newLabels)
@@ -64,13 +64,10 @@ print('Validation set', valid_dataset.shape, valid_labels.shape)
 print('Test set', test_dataset.shape, test_labels.shape)
 
 def accuracy(predictions, labels):
-  x1 = sum(np.argmax(predictions[:11], 1) == np.argmax(labels[:11], 1))
-  x2 = sum(np.argmax(predictions[11:22], 1) == np.argmax(labels[11:22], 1))
-  x3 = sum(np.argmax(predictions[22:33], 1) == np.argmax(labels[22:33], 1))
-  x4 = sum(np.argmax(predictions[33:44], 1) == np.argmax(labels[33:44], 1))
-  x5 = sum(np.argmax(predictions[44:55], 1) == np.argmax(labels[44:55], 1))
-  return 100.0 * (x1+x2+x3+x4+x5) / predictions.shape[0]
-
+  maxPredictions = np.argmax(predictions, 2)
+  maxLabels = np.argmax(labels, 2)
+  result = 100.0 * sum(sum(maxPredictions == maxLabels)) / predictions.shape[1] / predictions.shape[2] 
+  return result
 
 def ConvNet():
     batch_size = 32;
@@ -85,7 +82,7 @@ def ConvNet():
     with graph.as_default():
       # Input data.
       tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_height, image_width, num_channels))
-      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, output_size * 5))
+      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, 5, output_size))
 
       tf_valid_dataset = tf.constant(valid_dataset)
       tf_test_dataset = tf.constant(test_dataset)
@@ -144,21 +141,51 @@ def ConvNet():
         output_4 = tf.matmul(reshape, fc_4_weights) + fc_4_biases
         output_5 = tf.matmul(reshape, fc_5_weights) + fc_5_biases
 
-        logits = tf.concat(1, [output_1, output_2, output_3, output_4, output_5])  
-
-        return logits
+        return [output_1, output_2, output_3, output_4, output_5]
       
+
       # Training computation.
-      logits = model(tf_train_dataset)
-      loss = tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits)
+      [logits1, logits2, logits3, logits4, logits5] = model(tf_train_dataset)
+      
+      loss1 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits1, labels=tf_train_labels[:,0]))
+      loss2 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits2, labels=tf_train_labels[:,1]))
+      loss3 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits3, labels=tf_train_labels[:,2]))
+      loss4 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits4, labels=tf_train_labels[:,3]))
+      loss5 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits5, labels=tf_train_labels[:,4]))
+
+      loss = loss1 + loss2 + loss3 + loss4 + loss5
         
       # Optimizer.
       optimizer = tf.train.AdamOptimizer(0.001).minimize(loss)
       
       # Predictions for the training, validation, and test data.
-      train_prediction = tf.nn.softmax(logits)
-      valid_prediction = tf.nn.softmax(model(tf_valid_dataset))
-      test_prediction = tf.nn.softmax(model(tf_test_dataset))
+      #train_prediction = tf.nn.softmax(logits)
+      #valid_prediction = tf.nn.softmax(model(tf_valid_dataset))
+      #test_prediction = tf.nn.softmax(model(tf_test_dataset))
+
+      train_prediction = tf.stack([
+                             tf.nn.softmax(logits1), 
+                             tf.nn.softmax(logits2), 
+                             tf.nn.softmax(logits3), 
+                             tf.nn.softmax(logits4), 
+                             tf.nn.softmax(logits5)],1 )
+ 
+      [vlogits1, vlogits2, vlogits3, vlogits4, vlogits5] = model(tf_valid_dataset)
+      valid_prediction = tf.stack([
+                             tf.nn.softmax(vlogits1), 
+                             tf.nn.softmax(vlogits2), 
+                             tf.nn.softmax(vlogits3), 
+                             tf.nn.softmax(vlogits4), 
+                             tf.nn.softmax(vlogits5)], 1)
+ 
+      [tlogits1, tlogits2, tlogits3, tlogits4, tlogits5] = model(tf_test_dataset)
+      test_prediction = tf.stack([
+                             tf.nn.softmax(tlogits1), 
+                             tf.nn.softmax(tlogits2), 
+                             tf.nn.softmax(tlogits3), 
+                             tf.nn.softmax(tlogits4), 
+                             tf.nn.softmax(tlogits5)], 1)
+  
 
       num_steps = 1001
 
@@ -171,7 +198,6 @@ def ConvNet():
         batch_labels = train_labels[offset:(offset + batch_size), :]
         feed_dict = {tf_train_dataset : batch_data, tf_train_labels : batch_labels}
         _, l, predictions = session.run([optimizer, loss, train_prediction], feed_dict=feed_dict)
-        l = sum(l)
         if (step % 50 == 0):
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
