@@ -45,9 +45,8 @@ def reformat(dataset, labels):
   # Note that -1 is mapped to an all-zero vector
   newLabels = []
   for label in labels:
-      newLabel = (np.arange(num_labels) == label[:,None]).astype(np.float32)
+      newLabel = (np.arange(num_labels) == label[:,None])
       #Flatten 5 vectors into one 
-      newLabel = np.concatenate(newLabel).ravel()
       newLabels.append(newLabel)
       
   return dataset, np.array(newLabels)
@@ -85,7 +84,7 @@ def ConvNet():
     with graph.as_default():
       # Input data.
       tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_height, image_width, num_channels))
-      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, output_size * 5))
+      tf_train_labels = tf.placeholder(tf.int32, shape=(batch_size, 5))
 
       tf_valid_dataset = tf.constant(valid_dataset)
       tf_test_dataset = tf.constant(test_dataset)
@@ -144,21 +143,51 @@ def ConvNet():
         output_4 = tf.matmul(reshape, fc_4_weights) + fc_4_biases
         output_5 = tf.matmul(reshape, fc_5_weights) + fc_5_biases
 
-        logits = tf.concat(1, [output_1, output_2, output_3, output_4, output_5])  
-
-        return logits
+        return [output_1, output_2, output_3, output_4, output_5]
       
       # Training computation.
-      logits = model(tf_train_dataset)
-      loss = tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits)
+      [logits1, logits2, logits3, logits4, logits5] = model(tf_train_dataset)
+      #ologits = tf.concat(1, [logits1, logits2, logits3, logits4, logits5])
+      #oloss = tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits)
+
+      labels = tf_train_labels[:,0]
+
+      loss1 = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits1, labels=tf_train_labels[:,0]))
+      loss2 = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits2, labels=tf_train_labels[:,1]))
+      loss3 = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits3, labels=tf_train_labels[:,2]))
+      loss4 = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits4, labels=tf_train_labels[:,3]))
+      loss5 = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits5, labels=tf_train_labels[:,4]))
+      loss = loss1 + loss2 + loss3 + loss4 + loss5
         
       # Optimizer.
       optimizer = tf.train.AdamOptimizer(0.001).minimize(loss)
       
       # Predictions for the training, validation, and test data.
-      train_prediction = tf.nn.softmax(logits)
-      valid_prediction = tf.nn.softmax(model(tf_valid_dataset))
-      test_prediction = tf.nn.softmax(model(tf_test_dataset))
+      #train_prediction = tf.nn.softmax(logits)
+      #valid_prediction = tf.nn.softmax(model(tf_valid_dataset))
+      #test_prediction = tf.nn.softmax(model(tf_test_dataset))
+      train_prediction = tf.stack([
+                            tf.nn.softmax(logits1), 
+                            tf.nn.softmax(logits2), 
+                            tf.nn.softmax(logits3), 
+                            tf.nn.softmax(logits4), 
+                            tf.nn.softmax(logits5)])
+
+      [vlogits1, vlogits2, vlogits3, vlogits4, vlogits5] = model(tf_valid_dataset)
+      valid_prediction = tf.stack([
+                            tf.nn.softmax(vlogits1), 
+                            tf.nn.softmax(vlogits2), 
+                            tf.nn.softmax(vlogits3), 
+                            tf.nn.softmax(vlogits4), 
+                            tf.nn.softmax(vlogits5)])
+
+      [tlogits1, tlogits2, tlogits3, tlogits4, tlogits5] = model(tf_test_dataset)
+      test_prediction = tf.stack([
+                            tf.nn.softmax(tlogits1), 
+                            tf.nn.softmax(tlogits2), 
+                            tf.nn.softmax(tlogits3), 
+                            tf.nn.softmax(tlogits4), 
+                            tf.nn.softmax(tlogits5)])
 
       num_steps = 1001
 
