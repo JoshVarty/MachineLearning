@@ -31,8 +31,8 @@ with open(dest_file_path, 'rb') as f:
   print('Test set', test_dataset.shape, test_labels.shape)
 
 
-image_height = 80
-image_width = 80
+image_height = 40
+image_width = 40
 num_labels = 11
 output_size = 11;   #0 for blank and 1-10 for the actual letters
 lengthOfLabels = 5;
@@ -76,7 +76,7 @@ def ConvNet():
     depth_of_sixty_four = 64;
     num_hidden = 64;
 
-    fc_weight_size = 25600;
+    fc_weight_size = 6400;
 
     graph = tf.Graph()
     with graph.as_default():

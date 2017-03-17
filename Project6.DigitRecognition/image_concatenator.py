@@ -63,8 +63,8 @@ def generate(dataset, labels):
             imageArray[:, (i) * 28 : (i+1) * 28] = blankImage
             #print("AppendZerios: " + str(i))
 
-        imageHeight = 80
-        imageWidth = 80
+        imageHeight = 40
+        imageWidth = 40
         image = Image.fromarray(imageArray)
         squareImage = image.resize([imageHeight, imageWidth])
         data = np.array(squareImage.getdata())
