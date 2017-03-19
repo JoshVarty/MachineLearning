@@ -245,7 +245,7 @@ def ConvNet_LearningLoss():
         reshape = tf.reshape(pool_1, [shape[0], shape[1] * shape[2] * shape[3]])
         hidden = tf.nn.relu(tf.matmul(reshape, layer3_weights) + layer3_biases)
         keep_prob = tf.placeholder(tf.float32)
-        hidden_layer_drop = tf.nn.dropout(hidden_layer, keep_prob)
+        #fhidden_layer_drop = tf.nn.dropout(hidden_layer, keep_prob)
         return tf.matmul(hidden, layer4_weights) + layer4_biases
       
       # Training computation.
