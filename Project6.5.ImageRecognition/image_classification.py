@@ -7,7 +7,7 @@ from tqdm import tqdm
 import problem_unittests as tests
 import tarfile
 
-cifar10_dataset_folder_path = 'cifar-10-batches-py'
+cifar10_dataset_folder_path = 'C:\\data\\cifar-10-batches-py'
 
 class DLProgress(tqdm):
     last_block = 0
@@ -28,6 +28,5 @@ if not isdir(cifar10_dataset_folder_path):
     with tarfile.open('cifar-10-python.tar.gz') as tar:
         tar.extractall()
         tar.close()
-
 
 tests.test_folder_path(cifar10_dataset_folder_path)
