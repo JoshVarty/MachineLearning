@@ -6,6 +6,7 @@ from os.path import isfile, isdir, join
 from tqdm import tqdm
 import problem_unittests as tests
 import tarfile
+from sklearn.preprocessing import LabelBinarizer
 
 cifar10_dataset_folder_path = 'C:\\data\\cifar-10-batches-py'
 cifar10_dataset_file_path = 'C:\\data\\cifar-10-python.tar.gz'
@@ -63,3 +64,20 @@ def normalize(x):
 DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
 """
 tests.test_normalize(normalize)
+
+
+encoder = LabelBinarizer()
+encoder.fit([0,1,2,3,4,5,6,7,8,9])
+def one_hot_encode(x):
+    """
+    One hot encode a list of sample labels. Return a one-hot encoded vector for each label.
+    : x: List of sample Labels
+    : return: Numpy array of one-hot encoded labels
+    """
+    return encoder.transform(x)
+
+
+"""
+DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
+"""
+tests.test_one_hot_encode(one_hot_encode)
