@@ -8,8 +8,8 @@ import problem_unittests as tests
 import tarfile
 from sklearn.preprocessing import LabelBinarizer
 
-cifar10_dataset_folder_path = 'C:\\data\\cifar-10-batches-py'
-cifar10_dataset_file_path = 'C:\\data\\cifar-10-python.tar.gz'
+cifar10_dataset_folder_path = 'cifar-10-batches-py'
+cifar10_dataset_file_path = 'cifar-10-python.tar.gz'
 
 class DLProgress(tqdm):
     last_block = 0
@@ -81,3 +81,18 @@ def one_hot_encode(x):
 DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
 """
 tests.test_one_hot_encode(one_hot_encode)
+
+helper.preprocess_and_save_data(cifar10_dataset_folder_path, normalize, one_hot_encode)
+
+
+"""
+DON'T MODIFY ANYTHING IN THIS CELL
+"""
+import pickle
+import problem_unittests as tests
+import helper
+
+# Load the Preprocessed Validation data
+valid_features, valid_labels = pickle.load(open('preprocess_validation.p', mode='rb'))
+
+
