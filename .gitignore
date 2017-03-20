@@ -28,6 +28,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 cifar-10-batches-py/
+*.p
 
 # Visual Studio 2015 cache/options directory
 .vs/
