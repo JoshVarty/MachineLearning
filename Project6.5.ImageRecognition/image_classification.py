@@ -96,3 +96,43 @@ import helper
 valid_features, valid_labels = pickle.load(open('preprocess_validation.p', mode='rb'))
 
 
+
+
+import tensorflow as tf
+
+def neural_net_image_input(image_shape):
+    """
+    Return a Tensor for a batch of image input
+    : image_shape: Shape of the images
+    : return: Tensor for image input.
+    """
+    batch_size = None
+    tensor = tf.placeholder(tf.float32,shape=(batch_size, image_shape[0], image_shape[1], image_shape[2]), name='x')
+    return tensor
+
+
+def neural_net_label_input(n_classes):
+    """
+    Return a Tensor for a batch of label input
+    : n_classes: Number of classes
+    : return: Tensor for label input.
+    """
+    batch_size = None
+    return tf.placeholder(tf.float32, shape=(batch_size, n_classes), name='y')
+
+
+def neural_net_keep_prob_input():
+    """
+    Return a Tensor for keep probability
+    : return: Tensor for keep probability.
+    """
+    return tf.placeholder(tf.float32, name='keep_prob')
+
+
+"""
+DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
+"""
+tf.reset_default_graph()
+tests.test_nn_image_inputs(neural_net_image_input)
+tests.test_nn_label_inputs(neural_net_label_input)
+tests.test_nn_keep_prob_inputs(neural_net_keep_prob_input)
