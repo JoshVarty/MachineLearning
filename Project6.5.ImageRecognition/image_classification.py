@@ -202,3 +202,23 @@ def fully_conn(x_tensor, num_outputs):
 DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
 """
 tests.test_fully_conn(fully_conn)
+
+
+
+def output(x_tensor, num_outputs):
+    """
+    Apply a output layer to x_tensor using weight and bias
+    : x_tensor: A 2-D tensor where the first dimension is batch size.
+    : num_outputs: The number of output that the new tensor should be.
+    : return: A 2-D tensor where the second dimension is num_outputs.
+    """
+    shape = x_tensor.get_shape().as_list()
+    weights = tf.Variable(tf.truncated_normal([shape[1], num_outputs], stddev=0.1))
+    biases = tf.Variable(tf.constant(1.0, shape=[num_outputs]))
+    return tf.matmul(x_tensor, weights) + biases
+
+
+"""
+DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
+"""
+tests.test_output(output)
