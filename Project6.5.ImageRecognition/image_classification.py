@@ -349,3 +349,21 @@ epochs = 1001
 batch_size = 32
 keep_probability = 0.85
 
+
+
+"""
+DON'T MODIFY ANYTHING IN THIS CELL
+"""
+print('Checking the Training on a Single Batch...')
+with tf.Session() as sess:
+    # Initializing the variables
+    sess.run(tf.global_variables_initializer())
+    
+    # Training cycle
+    for epoch in range(epochs):
+        batch_i = 1
+        for batch_features, batch_labels in helper.load_preprocess_training_batch(batch_i, batch_size):
+            train_neural_network(sess, optimizer, keep_probability, batch_features, batch_labels)
+
+        print('Epoch {:>2}, CIFAR-10 Batch {}:  '.format(epoch + 1, batch_i))
+        print_stats(sess, batch_features, batch_labels, cost, accuracy)
