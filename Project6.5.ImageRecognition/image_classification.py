@@ -313,12 +313,39 @@ def train_neural_network(session, optimizer, keep_probability, feature_batch, la
     : label_batch: Batch of Numpy label data
     """
     feed_dict = { x: feature_batch, y: label_batch, keep_prob : keep_probability }
-    _ = session.run([optimizer], feed_dict)
+    _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
 
 
 """
 DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
 """
-tests.test_train_nn(train_neural_network)
+#tests.test_train_nn(train_neural_network)
 
+
+
+
+def print_stats(session, feature_batch, label_batch, cost, accuracy):
+    """
+    Print information about loss and validation accuracy
+    : session: Current TensorFlow session
+    : feature_batch: Batch of Numpy image data
+    : label_batch: Batch of Numpy label data
+    : cost: TensorFlow cost function
+    : accuracy: TensorFlow accuracy function
+    """
+    feed_dict = { x: feature_batch, y: label_batch, keep_prob : keep_probability }
+    _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
+    print("Training Cost: " + c)
+    print("Training Accuracy: " + accuracy(predictions, label_batch))
+    
+    feed_dict = { x: valid_features, y: valid_labels, keep_prob : 1.0 }
+    _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
+    print("Validation Cost: " + c)
+    print("Training Accuracy: " + accuracy(predictions, valid_labels))
+
+
+# Tune Parameters
+epochs = 1001
+batch_size = 32
+keep_probability = 0.85
 
