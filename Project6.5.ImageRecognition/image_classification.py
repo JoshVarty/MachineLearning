@@ -314,6 +314,7 @@ def train_neural_network(session, optimizer, keep_probability, feature_batch, la
     """
     feed_dict = { x: feature_batch, y: label_batch, keep_prob : keep_probability }
     _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
+    xxx = _
 
 
 """
@@ -335,13 +336,13 @@ def print_stats(session, feature_batch, label_batch, cost, accuracy):
     """
     feed_dict = { x: feature_batch, y: label_batch, keep_prob : keep_probability }
     _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
-    print("Training Cost: " + c)
-    print("Training Accuracy: " + accuracy(predictions, label_batch))
+    print("Training Cost: " + str(c))
+    print("Training Accuracy: " + str(accuracy(predictions, label_batch)))
     
     feed_dict = { x: valid_features, y: valid_labels, keep_prob : 1.0 }
     _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
-    print("Validation Cost: " + c)
-    print("Training Accuracy: " + accuracy(predictions, valid_labels))
+    print("Validation Cost: " + str(c))
+    print("Training Accuracy: " + str(accuracy(predictions, valid_labels)))
 
 
 # Tune Parameters
