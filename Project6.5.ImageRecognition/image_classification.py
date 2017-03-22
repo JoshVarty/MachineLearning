@@ -334,14 +334,14 @@ def print_stats(session, feature_batch, label_batch, cost, accuracy):
     : accuracy: TensorFlow accuracy function
     """
     feed_dict = { x: feature_batch, y: label_batch, keep_prob : keep_probability }
-    _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
+    _, c, predictions, a = session.run([optimizer, cost, logits, accuracy], feed_dict)
     print("Training Cost: " + str(c))
-    print("Training Accuracy: " + str(accuracy))
-    
+    print("Training Accuracy: " + str(a))
+
     feed_dict = { x: valid_features, y: valid_labels, keep_prob : 1.0 }
-    _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
+    _, c, predictions, a = session.run([optimizer, cost, logits, accuracy], feed_dict)
     print("Validation Cost: " + str(c))
-    print("Validation Accuracy: " + str(accuracy))
+    print("Validation Accuracy: " + str(a))
 
 
 # Tune Parameters
