@@ -337,17 +337,17 @@ def print_stats(session, feature_batch, label_batch, cost, accuracy):
     feed_dict = { x: feature_batch, y: label_batch, keep_prob : keep_probability }
     _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
     print("Training Cost: " + str(c))
-    print("Training Accuracy: " + str(accuracy(predictions, label_batch)))
+    print("Training Accuracy: " + str(accuracy))
     
     feed_dict = { x: valid_features, y: valid_labels, keep_prob : 1.0 }
     _, c, predictions = session.run([optimizer, cost, logits], feed_dict)
     print("Validation Cost: " + str(c))
-    print("Training Accuracy: " + str(accuracy(predictions, valid_labels)))
+    print("Training Accuracy: " + str(accuracy))
 
 
 # Tune Parameters
 epochs = 1001
-batch_size = 32
+batch_size = 4
 keep_probability = 0.85
 
 
