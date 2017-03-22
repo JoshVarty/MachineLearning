@@ -299,4 +299,26 @@ optimizer = tf.train.AdamOptimizer().minimize(cost)
 correct_pred = tf.equal(tf.argmax(logits, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32), name='accuracy')
 
-tests.test_conv_net(conv_net)
+#tests.test_conv_net(conv_net)
+
+
+
+def train_neural_network(session, optimizer, keep_probability, feature_batch, label_batch):
+    """
+    Optimize the session on a batch of images and labels
+    : session: Current TensorFlow session
+    : optimizer: TensorFlow optimizer function
+    : keep_probability: keep probability
+    : feature_batch: Batch of Numpy image data
+    : label_batch: Batch of Numpy label data
+    """
+    feed_dict = { x: feature_batch, y: label_batch, keep_prob : keep_probability }
+    _ = session.run([optimizer], feed_dict)
+
+
+"""
+DON'T MODIFY ANYTHING IN THIS CELL THAT IS BELOW THIS LINE
+"""
+tests.test_train_nn(train_neural_network)
+
+
